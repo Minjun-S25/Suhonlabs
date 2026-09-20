@@ -125,15 +125,22 @@ export function absoluteUrl(path = "/"): string {
 /**
  * Founder / studio photograph for the About page.
  *
- * Left null until a real photo exists, so nothing placeholder-shaped ever
- * ships. To add one: put the file in /public and fill this in —
- *   { src: "/founder.jpg", alt: "…", width: 1200, height: 1500 }
- * The About page renders it as an editorial image: rectangular crop, no
- * avatar, with FOUNDER / PRODUCT / DESIGN / ENGINEERING set beside it.
+ * Rendered as an editorial image — rectangular crop inside a studio frame,
+ * never a circular avatar — with FOUNDER / PRODUCT / DESIGN / ENGINEERING set
+ * beside it. `width` and `height` are the file's real pixel dimensions; they
+ * reserve the space so the page doesn't shift as the image loads.
+ *
+ * Set this back to null and the whole section disappears, rather than leaving
+ * a placeholder behind.
  */
 export const founder: {
   src: string;
   alt: string;
   width: number;
   height: number;
-} | null = null;
+} | null = {
+  src: "/founder.jpg",
+  alt: "The founder of SuhonLabs, seated with one hand resting against his chin, in a black shirt against a plain backdrop.",
+  width: 1200,
+  height: 1582,
+};

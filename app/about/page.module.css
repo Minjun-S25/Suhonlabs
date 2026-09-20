@@ -22,23 +22,39 @@
   color: var(--ink-secondary);
 }
 
-/* Editorial portrait: rectangular crop, metadata set beside it on a rule. */
+/* Editorial portrait: a rectangular crop held in a studio frame, with the
+   role set beside it on the baseline. Never a circular avatar. */
 .portrait {
   margin: 0;
   display: grid;
-  gap: clamp(1rem, 2.5vw, 1.75rem);
+  gap: clamp(1.25rem, 3vw, 2rem);
+  align-items: end;
+}
+
+.portraitFrame {
   border: var(--rule-w) solid var(--rule);
   padding: var(--rule-w);
+  background: var(--paper);
+  /* The frame is exactly the picture; no stray line below it. */
+  line-height: 0;
 }
 
 .portraitImage {
   width: 100%;
   height: auto;
-  filter: grayscale(1) contrast(1.08);
+  filter: grayscale(1);
 }
 
 .portraitMeta {
-  padding: 0 clamp(0.75rem, 2vw, 1.25rem) clamp(0.75rem, 2vw, 1rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-bottom: 0.35rem;
+}
+
+.portraitRole {
+  font-size: var(--step--1);
+  letter-spacing: 0.18em;
 }
 
 @media (min-width: 900px) {
@@ -47,11 +63,16 @@
   }
 
   .portrait {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    align-items: end;
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+    /* The rule beside the picture runs its full height, like every other
+       column divider on the site — not a tick floating next to the label. */
+    align-items: stretch;
   }
 
   .portraitMeta {
-    padding-bottom: clamp(1rem, 2.5vw, 1.75rem);
+    justify-content: flex-end;
+    border-left: var(--rule-w) solid var(--rule);
+    padding-left: clamp(1.25rem, 2.5vw, 2rem);
+    padding-bottom: clamp(0.5rem, 2vw, 1.25rem);
   }
 }

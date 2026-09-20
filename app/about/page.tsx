@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { ContactCta } from "@/components/ContactCta";
@@ -36,19 +37,32 @@ export default function AboutPage() {
 
       {/* Renders only once a real photograph exists. See lib/site.ts. */}
       {founder ? (
-        <section className="section">
+        <section className="section" aria-labelledby="founder-title">
           <div className="container">
+            <div className="sectionLabel">
+              <p className="label" id="founder-title">
+                02 / Founder
+              </p>
+              <p className="label label--muted">SuhonLabs / {site.year}</p>
+            </div>
+
             <figure className={styles.portrait}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                className={styles.portraitImage}
-                src={founder.src}
-                alt={founder.alt}
-                width={founder.width}
-                height={founder.height}
-              />
+              <div className={styles.portraitFrame}>
+                <Image
+                  className={styles.portraitImage}
+                  src={founder.src}
+                  alt={founder.alt}
+                  width={founder.width}
+                  height={founder.height}
+                  sizes="(min-width: 900px) 42vw, 100vw"
+                  priority
+                />
+              </div>
+
               <figcaption className={styles.portraitMeta}>
-                <p className="label">Founder / Product / Design / Engineering</p>
+                <p className={`label ${styles.portraitRole}`}>
+                  Founder / Product / Design / Engineering
+                </p>
               </figcaption>
             </figure>
           </div>
@@ -58,7 +72,7 @@ export default function AboutPage() {
       <section className="section" aria-labelledby="what-title">
         <div className="container">
           <div className="sectionLabel">
-            <p className="label">02 / What we do</p>
+            <p className="label">{founder ? "03" : "02"} / What we do</p>
             <p className="label label--muted">{site.disciplines}</p>
           </div>
 
@@ -90,7 +104,7 @@ export default function AboutPage() {
       <section className="section" aria-labelledby="how-title">
         <div className="container">
           <div className="sectionLabel">
-            <p className="label">03 / How we work</p>
+            <p className="label">{founder ? "04" : "03"} / How we work</p>
             <p className="label label--muted">Small team</p>
           </div>
 
@@ -111,7 +125,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <ContactCta index="04" />
+      <ContactCta index={founder ? "05" : "04"} />
     </>
   );
 }

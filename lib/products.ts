@@ -33,7 +33,7 @@ export type Product = {
   audience: string;
   status: ProductStatus;
   /** Which artwork variant to render. See components/ProductArtwork.tsx. */
-  artwork: "daybyus" | "cat";
+  artwork: "daybyus";
   /** Product accent colour. Each product carries its own personality. */
   accent: string;
   accentSoft: string;
@@ -73,23 +73,6 @@ export const products: Product[] = [
     hasPage: true,
     stores: [],
     order: 1,
-  },
-  {
-    slug: "cat",
-    name: "Cat Product",
-    nameNote: "Working title — the public name is still being decided.",
-    category: "Companionship",
-    tagline: "A life with a cat, kept.",
-    summary:
-      "An app about the relationship between people and their cats: daily photos, small moments, and a timeline worth looking back on.",
-    audience: "Cat owners",
-    status: "in-development",
-    artwork: "cat",
-    accent: "#5F6B52",
-    accentSoft: "#E6EADF",
-    hasPage: false,
-    stores: [],
-    order: 2,
   },
 ];
 

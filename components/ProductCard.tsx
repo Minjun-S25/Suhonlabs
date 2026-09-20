@@ -5,11 +5,24 @@ import { ProductArtwork } from "@/components/ProductArtwork";
 import { StatusPill } from "@/components/StatusPill";
 import styles from "./ProductCard.module.css";
 
-export function ProductCard({ product }: { product: Product }) {
+type Props = {
+  product: Product;
+  /**
+   * Position in the list. Drives the separator above the card and which side
+   * the artwork sits on, so the card renders the same whatever else shares
+   * its container.
+   */
+  index?: number;
+};
+
+export function ProductCard({ product, index = 0 }: Props) {
   const headingId = `product-${product.slug}`;
+  const className = [styles.card, index > 0 ? styles.cardStacked : ""]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <article className={styles.card} aria-labelledby={headingId}>
+    <article className={className} aria-labelledby={headingId}>
       <div className={styles.body}>
         <div className={styles.meta}>
           <span className={styles.category}>{product.category}</span>
@@ -36,7 +49,9 @@ export function ProductCard({ product }: { product: Product }) {
         ) : null}
       </div>
 
-      <div className={styles.artwork}>
+      <div
+        className={`${styles.artwork} ${index % 2 === 0 ? styles.artworkEnd : styles.artworkStart}`}
+      >
         <ProductArtwork product={product} />
       </div>
     </article>

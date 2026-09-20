@@ -1,13 +1,13 @@
 .card {
   display: grid;
   gap: clamp(1.5rem, 4vw, 3rem);
-  padding-block: clamp(2.25rem, 5vw, 3.5rem);
-  border-top: 1px solid var(--line);
 }
 
-.card:first-child {
-  border-top: 0;
-  padding-top: 0;
+/* Only ever a rule *between* cards, never above the first one. */
+.cardStacked {
+  margin-top: clamp(2.25rem, 5vw, 3.5rem);
+  padding-top: clamp(2.25rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--line);
 }
 
 .body {
@@ -73,11 +73,12 @@
     align-items: center;
   }
 
-  .card:nth-child(even) .artwork {
-    order: -1;
+  /* Alternate which side the artwork sits on as the list grows. */
+  .artworkEnd {
+    order: 1;
   }
 
-  .card:nth-child(odd) .artwork {
-    order: 1;
+  .artworkStart {
+    order: -1;
   }
 }

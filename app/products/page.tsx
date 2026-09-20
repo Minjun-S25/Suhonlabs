@@ -7,7 +7,7 @@ import { sortedProducts } from "@/lib/products";
 import { absoluteUrl } from "@/lib/site";
 
 const description =
-  "The apps SuhonLabs builds and runs — DayByUs for long-distance couples, and an upcoming product about life with a cat.";
+  "The apps SuhonLabs builds and runs. DayByUs, a private space for long-distance couples, is the first.";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -27,13 +27,13 @@ export default function ProductsPage() {
       <PageHeader
         eyebrow="Products"
         title="Every product is its own brand."
-        lede="SuhonLabs designs, builds and operates each of these apps. They don't share a category — they share a way of thinking about the people using them."
+        lede="SuhonLabs designs, builds and operates everything it releases. One product so far, built the way we intend to build the next one."
       />
 
       <section className="section">
         <div className="container">
-          {sortedProducts.map((product) => (
-            <ProductCard key={product.slug} product={product} />
+          {sortedProducts.map((product, index) => (
+            <ProductCard key={product.slug} product={product} index={index} />
           ))}
         </div>
       </section>

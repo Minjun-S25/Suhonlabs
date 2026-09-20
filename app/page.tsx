@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { ProductTeaserGrid } from "@/components/ProductTeaser";
+import { ProductCard } from "@/components/ProductCard";
 import { process } from "@/lib/content";
 import { sortedProducts } from "@/lib/products";
 import { absoluteUrl, site } from "@/lib/site";
@@ -55,7 +55,9 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <ProductTeaserGrid products={sortedProducts} />
+          {sortedProducts.map((product, index) => (
+            <ProductCard key={product.slug} product={product} index={index} />
+          ))}
         </div>
       </section>
 
@@ -67,8 +69,8 @@ export default function HomePage() {
               Technology should support the experience, not complicate it.
             </h2>
             <p className="lede">
-              Our products don&rsquo;t all sit in the same category. Relationships, companionship,
-              memories, the ordinary rhythm of a week — what they share is a way of working.
+              Relationships, companionship, memories, the ordinary rhythm of a week. Whatever a
+              product turns out to be about, it gets made the same way.
             </p>
           </div>
 

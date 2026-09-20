@@ -107,7 +107,6 @@ export default function AboutPage() {
           <pre className={styles.brandTree} aria-label="SuhonLabs product structure">
 {`SuhonLabs
 ├── DayByUs            Relationships
-├── Cat product        Companionship · in development
 └── Future products`}
           </pre>
         </div>

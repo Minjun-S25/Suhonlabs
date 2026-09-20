@@ -5,6 +5,42 @@
  * rather than showing a placeholder.
  */
 
+const defaultSiteUrl = "https://suhonlabs.com";
+
+/**
+ * Resolve the canonical origin from the environment.
+ *
+ * NEXT_PUBLIC_SITE_URL is read at build time and feeds `metadataBase`, every
+ * canonical link, the sitemap and each Open Graph URL. `new URL()` throws on a
+ * value with no scheme — "suhonlabs.com" instead of "https://suhonlabs.com" —
+ * and that thrown error fails the entire build with an opaque message, on a
+ * variable that is documented as optional.
+ *
+ * So: add the scheme when it is missing, and fall back to the default when the
+ * value cannot be read as an http(s) URL at all. A misconfigured deployment
+ * gets a warning and correct pages, not a dead build.
+ */
+function resolveSiteUrl(value: string | undefined): string {
+  const raw = value?.trim();
+  if (!raw) return defaultSiteUrl;
+
+  const candidate = /^[a-z][a-z0-9+.-]*:\/\//i.test(raw) ? raw : `https://${raw}`;
+
+  try {
+    const { protocol } = new URL(candidate);
+    if (protocol !== "https:" && protocol !== "http:") {
+      throw new Error(`unsupported protocol "${protocol}"`);
+    }
+  } catch {
+    console.warn(
+      `NEXT_PUBLIC_SITE_URL="${raw}" is not a valid http(s) URL. Falling back to ${defaultSiteUrl}.`,
+    );
+    return defaultSiteUrl;
+  }
+
+  return candidate.replace(/\/$/, "");
+}
+
 export const site = {
   name: "SuhonLabs",
   /** The line under the wordmark in the footer. */
@@ -18,7 +54,7 @@ export const site = {
     "SuhonLabs is a small software studio building our own consumer apps. We're starting with DayByUs, for couples doing long distance.",
   /** Supporting line under the home hero. */
   positioning: "We're a small software studio. We build our own apps, and we run them ourselves.",
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://suhonlabs.com").replace(/\/$/, ""),
+  url: resolveSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
   locale: "en_US",
 } as const;
 

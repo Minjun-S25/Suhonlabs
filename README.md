@@ -27,7 +27,7 @@ rather than showing a placeholder.
 
 | Variable | Purpose |
 | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, canonicals, sitemap and OG URLs. Defaults to `https://suhonlabs.com`. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, canonicals, sitemap and OG URLs. Defaults to `https://suhonlabs.com`. A value with no scheme (`suhonlabs.com`) gets `https://` added; anything that still isn't an http(s) URL is ignored with a build-time warning, so a typo can't fail the build. |
 | `CONTACT_FORWARD_URL` | Where `/api/contact` posts submissions as JSON. While empty, the form tells people it isn't connected yet instead of dropping messages. |
 | `CONTACT_FORWARD_TOKEN` | Optional `Authorization: Bearer` token for that request. |
 | `NEXT_PUBLIC_ANALYTICS_SRC` | Analytics script URL. Nothing loads while empty. |

@@ -8,6 +8,6 @@ export default function Image() {
   return renderOgImage({
     eyebrow: "About",
     title: "We're SuhonLabs.",
-    subtitle: "A small software studio building our own consumer apps.",
+    subtitle: "A small software studio. We build our own apps instead of building them for other people.",
   });
 }

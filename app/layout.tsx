@@ -14,10 +14,14 @@ const sans = Inter({
   variable: "--font-sans",
 });
 
+/**
+ * Serif is the product voice, not the studio voice. It is loaded for DayByUs
+ * — the studio shell is sans-serif throughout.
+ */
 const serif = Newsreader({
   subsets: ["latin"],
   display: "swap",
-  weight: ["300", "400", "500"],
+  weight: ["400", "500"],
   style: ["normal", "italic"],
   variable: "--font-serif",
 });
@@ -25,7 +29,7 @@ const serif = Newsreader({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "SuhonLabs — Thoughtful Software for Everyday Life",
+    default: "SuhonLabs — Independent Software Studio",
     template: "%s — SuhonLabs",
   },
   description: site.description,
@@ -44,12 +48,12 @@ export const metadata: Metadata = {
     siteName: site.name,
     locale: site.locale,
     url: absoluteUrl("/"),
-    title: "SuhonLabs — Thoughtful Software for Everyday Life",
+    title: "SuhonLabs — Independent Software Studio",
     description: site.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "SuhonLabs — Thoughtful Software for Everyday Life",
+    title: "SuhonLabs — Independent Software Studio",
     description: site.description,
   },
   robots: {
@@ -60,7 +64,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#faf8f5",
+  themeColor: "#f2efe7",
   colorScheme: "light",
 };
 

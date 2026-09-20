@@ -1,50 +1,60 @@
 /* ==========================================================================
    SuhonLabs — design tokens
-   The studio identity stays deliberately neutral (paper, ink, one hairline
-   rule) so each product can bring its own colour. Products set --accent
-   locally; nothing in the chrome depends on it.
+   The studio identity is monochrome on purpose: paper, ink, and black rules.
+   Products bring their own colour and set --accent locally; nothing in the
+   studio chrome depends on it.
    ========================================================================== */
 
 :root {
   /* Surfaces */
-  --paper: #faf8f5;
-  --paper-raised: #ffffff;
-  --paper-sunken: #f2eee8;
+  --paper: #f2efe7;
+  --paper-raised: #f8f6f0;
+  --paper-sunken: #e7e3d8;
 
   /* Ink */
-  --ink: #17150f;
-  --ink-secondary: #4d473d;
-  --ink-tertiary: #7a7266;
+  --ink: #111111;
+  --ink-secondary: #55534d;
+  --ink-tertiary: #8a867c;
+  --on-ink: #f2efe7;
+  --on-ink-muted: #a8a49a;
 
-  /* Lines */
-  --line: rgba(23, 21, 15, 0.12);
-  --line-strong: rgba(23, 21, 15, 0.22);
+  /* Lines. Major structure is 2px; secondary dividers are 1px. */
+  --rule: #111111;
+  --rule-w: 2px;
+  --line: rgba(17, 17, 17, 0.2);
 
-  /* Studio accent — intentionally close to ink. Products override --accent. */
-  --accent: #17150f;
-  --accent-soft: #eee9e1;
-  --focus: #2f6df6;
+  /* No studio accent. Products override --accent inside their own sections. */
+  --accent: #111111;
+  --accent-soft: #e7e3d8;
+  --focus: #1f4fd8;
+
+  /* Hard offset shadow. Used sparingly: buttons and one or two containers. */
+  --shadow: 6px 6px 0 var(--ink);
+  --shadow-press: 2px 2px 0 var(--ink);
 
   /* Type */
-  --font-display: var(--font-serif), Georgia, "Times New Roman", serif;
-  --font-body: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif;
+  --font-sans-stack: var(--font-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: var(--font-sans-stack);
+  --font-display: var(--font-sans-stack);
+  /* Serif is product voice, not studio voice. Used only inside DayByUs. */
+  --font-serif-stack: var(--font-serif), Georgia, "Times New Roman", serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
 
   /* Fluid type scale */
-  --step--1: clamp(0.82rem, 0.79rem + 0.13vw, 0.89rem);
-  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.12rem);
-  --step-1: clamp(1.2rem, 1.12rem + 0.38vw, 1.45rem);
-  --step-2: clamp(1.45rem, 1.3rem + 0.72vw, 1.95rem);
-  --step-3: clamp(1.8rem, 1.5rem + 1.45vw, 2.85rem);
-  --step-4: clamp(2.25rem, 1.65rem + 2.9vw, 4.2rem);
+  --step--2: 0.7rem;
+  --step--1: clamp(0.8rem, 0.78rem + 0.1vw, 0.86rem);
+  --step-0: clamp(1rem, 0.97rem + 0.16vw, 1.1rem);
+  --step-1: clamp(1.15rem, 1.08rem + 0.35vw, 1.4rem);
+  --step-2: clamp(1.45rem, 1.3rem + 0.7vw, 1.95rem);
+  --step-3: clamp(1.9rem, 1.55rem + 1.7vw, 3.1rem);
+  --step-4: clamp(2.6rem, 1.9rem + 3.4vw, 5rem);
+  --step-5: clamp(3.4rem, 1.9rem + 7.4vw, 9rem);
 
   /* Rhythm */
-  --gutter: clamp(1.25rem, 5vw, 2.5rem);
-  --section-y: clamp(4rem, 9vw, 8rem);
-  --measure: 62ch;
-  --radius: 4px;
-  --radius-lg: 10px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --section-y: clamp(3.5rem, 7vw, 6.5rem);
+  --measure: 58ch;
+  --radius: 0px;
 
   color-scheme: light;
 }
@@ -70,7 +80,7 @@ body {
   color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--step-0);
-  line-height: 1.6;
+  line-height: 1.55;
   font-synthesis-weight: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -78,6 +88,8 @@ body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  /* The identity is bold type and rules; never a sideways scrollbar. */
+  overflow-x: hidden;
 }
 
 h1,
@@ -85,9 +97,9 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 400;
-  line-height: 1.12;
-  letter-spacing: -0.015em;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
   text-wrap: balance;
   margin: 0;
 }
@@ -103,6 +115,7 @@ h3 {
 }
 h4 {
   font-size: var(--step-1);
+  letter-spacing: -0.015em;
 }
 
 p {
@@ -140,8 +153,8 @@ select {
 
 :focus-visible {
   outline: 2px solid var(--focus);
-  outline-offset: 3px;
-  border-radius: 2px;
+  outline-offset: 2px;
+  border-radius: 0;
 }
 
 :focus:not(:focus-visible) {
@@ -164,30 +177,38 @@ select {
 }
 
 /* --------------------------------------------------------------------------
-   Utilities
+   Layout
    -------------------------------------------------------------------------- */
 
 .container {
   width: 100%;
-  max-width: 1180px;
+  max-width: 1400px;
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
 
 .container--narrow {
-  max-width: 780px;
+  max-width: 900px;
 }
 
+/* Sections are separated by a full-bleed black rule: the grid stays visible. */
 .section {
   padding-block: var(--section-y);
 }
 
 .section--tight {
-  padding-block: clamp(3rem, 6vw, 5rem);
+  padding-block: clamp(2.5rem, 5vw, 4rem);
 }
 
-.section + .section {
-  border-top: 1px solid var(--line);
+.section + .section,
+.section--ruled {
+  border-top: var(--rule-w) solid var(--rule);
+}
+
+.section--ink {
+  background: var(--ink);
+  color: var(--on-ink);
+  border-top: var(--rule-w) solid var(--rule);
 }
 
 .visually-hidden {
@@ -209,38 +230,71 @@ select {
   z-index: 100;
   transform: translateY(-120%);
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-ink);
   padding: 0.7rem 1.1rem;
-  border-radius: 0 0 var(--radius) var(--radius);
+  border: var(--rule-w) solid var(--ink);
+  border-top: 0;
   font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   text-decoration: none;
-  transition: transform 160ms ease;
+  transition: transform 140ms ease;
 }
 
 .skip-link:focus {
   transform: translateY(0);
 }
 
-/* Eyebrow / section label */
-.eyebrow {
+/* --------------------------------------------------------------------------
+   Typographic furniture
+   -------------------------------------------------------------------------- */
+
+/* Compact uppercase metadata: 01 / PRODUCT, INDEPENDENT SOFTWARE STUDIO. */
+.label {
   font-family: var(--font-body);
-  font-size: var(--step--1);
-  letter-spacing: 0.14em;
+  font-size: var(--step--2);
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--ink-tertiary);
-  font-weight: 500;
+  line-height: 1.3;
   margin: 0;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
 }
 
-/* An eyebrow label immediately above a heading needs a little air. */
-.eyebrow + h2,
-.eyebrow + h3 {
-  margin-top: 0.55rem;
+.label--muted {
+  color: var(--ink-tertiary);
+  font-weight: 500;
+}
+
+/* A section's opening line: number, name, and a rule running to the edge. */
+.sectionLabel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: clamp(1.75rem, 4vw, 3rem);
+}
+
+.sectionLabel > :last-child:not(:first-child) {
+  margin-left: auto;
+  text-align: right;
+}
+
+/* Wrapped metadata reads as a second line, not as a ragged right column. */
+@media (max-width: 560px) {
+  .sectionLabel > :last-child:not(:first-child) {
+    margin-left: 0;
+    text-align: left;
+  }
 }
 
 .lede {
   font-size: var(--step-1);
-  line-height: 1.5;
+  line-height: 1.45;
   color: var(--ink-secondary);
   max-width: var(--measure);
 }
@@ -249,11 +303,20 @@ select {
   max-width: var(--measure);
   display: flex;
   flex-direction: column;
-  gap: 1.15em;
+  gap: 1.1em;
   color: var(--ink-secondary);
 }
 
-.prose h2,
+.prose h2 {
+  color: var(--ink);
+  font-size: var(--step-2);
+  margin-top: 1.4em;
+  padding-top: 0.6em;
+  border-top: 1px solid var(--line);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
 .prose h3 {
   color: var(--ink);
   margin-top: 1em;
@@ -262,132 +325,152 @@ select {
 .prose a {
   color: var(--ink);
   text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.18em;
   text-decoration-thickness: 1px;
-  text-decoration-color: var(--line-strong);
 }
 
 .prose a:hover {
-  text-decoration-color: currentColor;
+  text-decoration-thickness: 2px;
 }
 
 .prose ul {
-  padding-left: 1.2em;
+  padding-left: 1.1em;
   display: flex;
   flex-direction: column;
   gap: 0.5em;
 }
 
 .prose li {
-  list-style: disc;
+  list-style: square;
 }
 
 /* --------------------------------------------------------------------------
-   Buttons & links
+   Buttons — rectangular, bordered, with a short hard displacement on hover
    -------------------------------------------------------------------------- */
 
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55em;
-  padding: 0.85em 1.5em;
-  border-radius: 999px;
-  border: 1px solid transparent;
+  gap: 0.6em;
+  padding: 0.95em 1.4em;
+  min-height: 48px;
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--rule-w) solid var(--ink);
+  border-radius: 0;
   font-size: var(--step--1);
-  font-weight: 500;
-  letter-spacing: 0.01em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
   transition:
-    background-color 180ms ease,
-    color 180ms ease,
-    border-color 180ms ease,
-    transform 180ms ease;
+    transform 120ms ease-out,
+    box-shadow 120ms ease-out,
+    background-color 120ms ease-out,
+    color 120ms ease-out;
+}
+
+.button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow);
 }
 
 .button:active {
-  transform: translateY(1px);
+  transform: translate(0, 0);
+  box-shadow: var(--shadow-press);
 }
 
 .button--primary {
   background: var(--ink);
-  color: var(--paper);
+  color: var(--on-ink);
 }
 
+/* A black button needs a shadow that reads against it: an offset outline. */
 .button--primary:hover {
-  background: #35301f;
+  box-shadow:
+    6px 6px 0 0 var(--paper),
+    6px 6px 0 2px var(--ink);
 }
 
-.button--secondary {
-  background: transparent;
+.button--primary:active {
+  box-shadow:
+    2px 2px 0 0 var(--paper),
+    2px 2px 0 2px var(--ink);
+}
+
+/* For use on an ink background. */
+.button--inverse {
+  background: var(--on-ink);
   color: var(--ink);
-  border-color: var(--line-strong);
+  border-color: var(--on-ink);
 }
 
-.button--secondary:hover {
-  border-color: var(--ink);
-  background: rgba(23, 21, 15, 0.03);
+.button--inverse:hover {
+  box-shadow: 6px 6px 0 rgba(242, 239, 231, 0.3);
+}
+
+.button--inverse:active {
+  box-shadow: 2px 2px 0 rgba(242, 239, 231, 0.3);
 }
 
 .button[disabled],
 .button[aria-disabled="true"] {
-  opacity: 0.55;
+  opacity: 0.45;
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
-/* Text link with an arrow that nudges on hover */
+/* Uppercase link with an arrow that steps on hover. */
 .arrow-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.45em;
+  gap: 0.5em;
   font-size: var(--step--1);
-  font-weight: 500;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   text-decoration: none;
-  color: var(--ink);
-  padding-block: 0.15em;
+  color: inherit;
+  padding-block: 0.2em;
+  border-bottom: var(--rule-w) solid currentColor;
+  transition: gap 120ms ease-out;
 }
 
 .arrow-link span:last-child {
-  transition: transform 180ms ease;
+  transition: transform 120ms ease-out;
 }
 
 .arrow-link:hover span:last-child {
-  transform: translateX(3px);
-}
-
-.arrow-link span:first-child {
-  border-bottom: 1px solid var(--line-strong);
-  padding-bottom: 1px;
-  transition: border-color 180ms ease;
-}
-
-.arrow-link:hover span:first-child {
-  border-color: currentColor;
+  transform: translate(2px, -2px);
 }
 
 /* --------------------------------------------------------------------------
-   Status pill
+   Status marker
    -------------------------------------------------------------------------- */
 
 .status {
   display: inline-flex;
   align-items: center;
   gap: 0.5em;
-  font-size: var(--step--1);
-  color: var(--ink-secondary);
-  border: 1px solid var(--line);
-  background: var(--paper-raised);
-  border-radius: 999px;
-  padding: 0.35em 0.85em;
+  font-size: var(--step--2);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  padding: 0.35em 0.6em;
   white-space: nowrap;
+  line-height: 1;
 }
 
 .status__dot {
   width: 6px;
   height: 6px;
-  border-radius: 50%;
-  background: var(--accent, var(--ink-tertiary));
+  border-radius: 0;
+  background: var(--accent, var(--ink));
   flex: none;
 }

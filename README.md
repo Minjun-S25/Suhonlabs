@@ -27,7 +27,7 @@ rather than showing a placeholder.
 
 | Variable | Purpose |
 | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, canonicals, sitemap and OG URLs. Defaults to `https://suhonlabs.com`. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, canonicals, sitemap and OG URLs. Defaults to `https://suhonlabs.com`. A value with no scheme (`suhonlabs.com`) gets `https://` added; anything that still isn't an http(s) URL is ignored with a build-time warning, so a typo can't fail the build. |
 | `CONTACT_FORWARD_URL` | Where `/api/contact` posts submissions as JSON. While empty, the form tells people it isn't connected yet instead of dropping messages. |
 | `CONTACT_FORWARD_TOKEN` | Optional `Authorization: Bearer` token for that request. |
 | `NEXT_PUBLIC_ANALYTICS_SRC` | Analytics script URL. Nothing loads while empty. |
@@ -101,11 +101,10 @@ app/
   api/contact/route.ts    Contact form endpoint
   opengraph-image.tsx     Per-route OG cards (one per page)
   sitemap.ts  robots.ts  icon.svg
-components/               Header, footer, product cards, artwork, contact form
+components/               Masthead, footer, product frame, artwork, contact block, form
 lib/
-  site.ts                 Studio facts, navigation, URL helpers
+  site.ts                 Studio facts, navigation, founder slot, URL helpers
   products.ts             The product catalogue
-  content.ts              Principles and process copy
   contact.ts              Validation shared by the form and the API route
   og.tsx                  Open Graph card renderer
 ```
@@ -126,11 +125,54 @@ and sitemap all read from that array, so a new product appears everywhere at onc
 exists — the DayByUs page only renders download buttons when that array has entries, so
 the site can't accidentally claim availability it doesn't have.
 
+## Design
+
+Two identities, deliberately unlike each other.
+
+**SuhonLabs — the studio shell.** Monochrome: warm paper (`--paper` `#f2efe7`), near-black
+ink (`#111`), neutral grey secondary text, black rules. Structure is meant to be visible —
+2px rules between sections, a ruled label line opening each one (`01 / CURRENT PRODUCT`),
+columns divided by vertical rules, square corners (`--radius: 0`). Type carries the
+personality: Inter at 800 for oversized uppercase headlines, compact uppercase metadata for
+labels and navigation, sentence-case sans for body copy. Buttons are rectangular and
+bordered; hover displaces them `-2px, -2px` and drops a hard `6px 6px 0` shadow in 120ms.
+Hard shadows are for buttons only — everything else is held by rules.
+
+**DayByUs — the product.** Warm, soft and serif, and it stays that way. Its palette is
+exactly two colours, set in `lib/products.ts` and used verbatim — never approximated or
+swapped for something close:
+
+| Token | Value | Where it goes |
+| --- | --- | --- |
+| `accent` | `#AD644C` | Headings, the primary button, the warm point in the artwork, the rule beside the small-things list |
+| `accentCool` | `#61708A` | Labels, the status panel and its border, section rules, the status pill, the cool point in the artwork |
+| `accentSoft` | `#F2E3DC` | A 14% tint of `accent`, for the hero wash and the ground behind the artwork |
+
+Warm leads and cool answers it, roughly three to one; everything else on the page is paper
+and a near-neutral ink, which is what keeps it calm. Both colours belong to the product:
+they appear on `/products/daybyus` and inside the product's own artwork, and nowhere else.
+Studio pages never borrow them, and the product is never restyled into the studio's
+language.
+
+One exception is documented in `app/products/daybyus/page.module.css`:
+`--product-cool-deep`, a darkened shade of `accentCool` used only for small uppercase
+labels on the warm ground, where the brand colour itself lands at 4.2:1 — short of the
+4.5:1 AA needs at that size. Everywhere it clears AA on its own ground, the brand colour
+is used untouched.
+
+Where the two meet — the product block on the home and products pages — the studio provides
+the frame (black rules, label row, square corners) and the product provides the picture. The
+DayByUs page keeps one thin strip of studio metadata at the top for continuity, and runs on
+its own palette below it.
+
+Anything added later should follow the same split: structure, type and rules for the studio;
+colour and softness for the product.
+
 ## Conventions
 
 - **No invented credibility.** No user counts, reviews, press, awards, logos or partners.
   If something isn't verified, it isn't on the site.
-- **Studio brand stays neutral.** Paper, ink and one hairline rule. Colour belongs to products.
+- **Studio brand stays neutral.** Warm paper, near-black ink, black rules. Colour belongs to products.
 - **Visuals are drawn, not stocked.** Product artwork is inline SVG — no mock screenshots,
   no stock photography, nothing implying an unbuilt feature.
 - **Accessibility is part of the component.** Semantic landmarks, a skip link, visible focus

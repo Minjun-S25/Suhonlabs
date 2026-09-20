@@ -1,30 +1,20 @@
+import styles from "./Wordmark.module.css";
+
 /**
- * The studio mark: two offset apertures — the studio and the product it
- * carries. Neutral by design so product colour never competes with it.
+ * The studio mark is typographic: the name set tight and heavy, with the
+ * registered sign as a small superior. No logo mark — the wordmark, the
+ * rules and the grid carry the identity.
+ *
+ * The name is written in mixed case and uppercased in CSS so screen readers
+ * read "SuhonLabs" rather than spelling it out.
  */
-export function Wordmark({ withText = true }: { withText?: boolean }) {
+export function Wordmark({ className }: { className?: string }) {
   return (
-    <>
-      <svg
-        viewBox="0 0 24 24"
-        width="22"
-        height="22"
-        aria-hidden="true"
-        focusable="false"
-        fill="none"
-      >
-        <rect
-          x="1.25"
-          y="1.25"
-          width="14"
-          height="14"
-          rx="3.25"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-        <rect x="8.75" y="8.75" width="14" height="14" rx="3.25" fill="currentColor" />
-      </svg>
-      {withText ? <span>SuhonLabs</span> : null}
-    </>
+    <span className={[styles.wordmark, className].filter(Boolean).join(" ")}>
+      SuhonLabs
+      <span className={styles.mark} aria-hidden="true">
+        ®
+      </span>
+    </span>
   );
 }

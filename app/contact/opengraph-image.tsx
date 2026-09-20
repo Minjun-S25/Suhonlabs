@@ -7,7 +7,7 @@ export const contentType = ogContentType;
 export default function Image() {
   return renderOgImage({
     eyebrow: "Contact",
-    title: "Get in touch",
-    subtitle: "Questions about SuhonLabs or DayByUs?",
+    title: "Have something to say?",
+    subtitle: "Questions about the studio or DayByUs, or anything else.",
   });
 }

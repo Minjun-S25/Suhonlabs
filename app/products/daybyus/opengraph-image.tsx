@@ -10,7 +10,8 @@ export default function Image() {
     title: "Long distance is hard enough.",
     subtitle:
       "A private place for couples to share their days and keep what they don't want to forget.",
-    accent: "#B4593F",
-    background: "#F7EFEA",
+    voice: "product",
+    accent: "#AD644C",
+    background: "#F8F1ED",
   });
 }

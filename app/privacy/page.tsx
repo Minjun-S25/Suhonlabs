@@ -41,20 +41,23 @@ export default function PrivacyPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Legal"
+        label="01 / Privacy"
+        meta={`Last updated ${lastUpdated}`}
         title="Privacy"
-        lede="This page describes how this website handles information. It says what is true today, and nothing more."
-      >
-        <p className={styles.meta}>Last updated: {lastUpdated}</p>
-      </PageHeader>
+        lede="How this website handles information. It says what is true today, and nothing more."
+      />
 
       <section className="section">
-        <div className="container container--narrow">
-          <nav aria-label="On this page" style={{ marginBottom: "2.5rem" }}>
+        <div className={`container ${styles.layout}`}>
+          <nav aria-label="On this page" className={styles.tocNav}>
+            <p className="label label--muted">On this page</p>
             <ul className={styles.toc}>
-              {sections.map((section) => (
+              {sections.map((section, index) => (
                 <li key={section.id}>
-                  <a href={`#${section.id}`}>{section.label}</a>
+                  <a href={`#${section.id}`}>
+                    <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                    <span>{section.label}</span>
+                  </a>
                 </li>
               ))}
             </ul>

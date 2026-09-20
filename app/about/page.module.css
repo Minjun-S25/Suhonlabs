@@ -1,28 +1,78 @@
-.headerNote {
-  color: var(--ink-secondary);
-  font-size: var(--step-1);
-  line-height: 1.55;
-  max-width: 48ch;
+.row {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: start;
 }
 
-.split {
-  display: grid;
-  gap: clamp(2rem, 5vw, 4rem);
+.rowTitle {
+  font-size: var(--step-3);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
 }
 
 .body {
   display: flex;
   flex-direction: column;
-  gap: 1.15rem;
-  max-width: 54ch;
-  color: var(--ink-secondary);
+  align-items: flex-start;
+  gap: 1.1rem;
+  max-width: 50ch;
   font-size: var(--step-1);
-  line-height: 1.55;
+  line-height: 1.45;
+  color: var(--ink-secondary);
+}
+
+/* Editorial portrait: a rectangular crop held in a studio frame, with the
+   role set beside it on the baseline. Never a circular avatar. */
+.portrait {
+  margin: 0;
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  align-items: end;
+}
+
+.portraitFrame {
+  border: var(--rule-w) solid var(--rule);
+  padding: var(--rule-w);
+  background: var(--paper);
+  /* The frame is exactly the picture; no stray line below it. */
+  line-height: 0;
+}
+
+.portraitImage {
+  width: 100%;
+  height: auto;
+  filter: grayscale(1);
+}
+
+.portraitMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-bottom: 0.35rem;
+}
+
+.portraitRole {
+  font-size: var(--step--1);
+  letter-spacing: 0.18em;
 }
 
 @media (min-width: 900px) {
-  .split {
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    align-items: start;
+  .row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  }
+
+  .portrait {
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+    /* The rule beside the picture runs its full height, like every other
+       column divider on the site — not a tick floating next to the label. */
+    align-items: stretch;
+  }
+
+  .portraitMeta {
+    justify-content: flex-end;
+    border-left: var(--rule-w) solid var(--rule);
+    padding-left: clamp(1.25rem, 2.5vw, 2rem);
+    padding-bottom: clamp(0.5rem, 2vw, 1.25rem);
   }
 }

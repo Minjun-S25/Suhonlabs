@@ -2,9 +2,9 @@ import type { Product } from "@/lib/products";
 import styles from "./ProductArtwork.module.css";
 
 type Props = {
-  product: Pick<Product, "artwork" | "accent" | "accentSoft" | "name">;
-  /** Rendered at a larger scale on product pages. */
-  priority?: boolean;
+  product: Pick<Product, "artwork" | "accent" | "accentCool" | "accentSoft" | "name">;
+  /** Drops the artwork's own edge when a studio frame already provides one. */
+  bleed?: boolean;
   className?: string;
 };
 
@@ -13,20 +13,28 @@ type Props = {
  * product's own accent colour — no mock screenshots, no stock imagery, nothing
  * that implies a feature the product does not have yet.
  */
-export function ProductArtwork({ product, className }: Props) {
+export function ProductArtwork({ product, bleed = false, className }: Props) {
   const style = {
     "--accent": product.accent,
+    "--accent-cool": product.accentCool,
     "--accent-soft": product.accentSoft,
   } as React.CSSProperties;
 
   return (
-    <div className={[styles.frame, className].filter(Boolean).join(" ")} style={style}>
+    <div
+      className={[styles.frame, bleed ? styles.bleed : "", className].filter(Boolean).join(" ")}
+      style={style}
+    >
       <DayByUsArt name={product.name} />
     </div>
   );
 }
 
-/** Two points held apart, each reaching toward the other until they overlap. */
+/**
+ * Two points held apart, each reaching toward the other until they overlap.
+ * One is drawn in the product's warm colour, the other in its cool one —
+ * two people, two colours, meeting in the middle.
+ */
 function DayByUsArt({ name }: { name: string }) {
   const rings = [58, 88, 118, 148];
 
@@ -49,12 +57,26 @@ function DayByUsArt({ name }: { name: string }) {
         strokeWidth="1"
       />
 
-      <g fill="none" stroke="var(--accent)" strokeWidth="1.25">
+      <g fill="none" strokeWidth="1.25">
         {rings.map((r, index) => (
-          <circle key={`l-${r}`} cx="196" cy="200" r={r} strokeOpacity={0.3 - index * 0.06} />
+          <circle
+            key={`l-${r}`}
+            cx="196"
+            cy="200"
+            r={r}
+            stroke="var(--accent)"
+            strokeOpacity={0.3 - index * 0.06}
+          />
         ))}
         {rings.map((r, index) => (
-          <circle key={`r-${r}`} cx="444" cy="200" r={r} strokeOpacity={0.3 - index * 0.06} />
+          <circle
+            key={`r-${r}`}
+            cx="444"
+            cy="200"
+            r={r}
+            stroke="var(--accent-cool)"
+            strokeOpacity={0.34 - index * 0.07}
+          />
         ))}
       </g>
 
@@ -64,7 +86,7 @@ function DayByUsArt({ name }: { name: string }) {
         cy="200"
         r="30"
         fill="none"
-        stroke="var(--accent)"
+        stroke="var(--accent-cool)"
         strokeWidth="2"
       />
     </svg>

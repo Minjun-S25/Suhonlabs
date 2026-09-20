@@ -29,6 +29,9 @@ rather than showing a placeholder.
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, canonicals, sitemap and OG URLs. Defaults to `https://suhonlabs.com`. |
 | `CONTACT_FORWARD_URL` | Where `/api/contact` posts submissions as JSON. While empty, the form tells people it isn't connected yet instead of dropping messages. |
+| `CONTACT_FORWARD_TOKEN` | Optional `Authorization: Bearer` token for that request. |
+| `NEXT_PUBLIC_ANALYTICS_SRC` | Analytics script URL. Nothing loads while empty. |
+| `NEXT_PUBLIC_ANALYTICS_DOMAIN` | `data-domain` for providers that need it (e.g. Plausible). |
 
 ### Email addresses
 
@@ -42,9 +45,49 @@ they're facts about the studio, not deployment config:
 | `Suhonlabs.privacy@outlook.com` | Privacy, data and account requests | Contact page, footer, privacy policy, DayByUs privacy section |
 
 Spellings are exact as registered. Don't "correct" or alias them.
-| `CONTACT_FORWARD_TOKEN` | Optional `Authorization: Bearer` token for that request. |
-| `NEXT_PUBLIC_ANALYTICS_SRC` | Analytics script URL. Nothing loads while empty. |
-| `NEXT_PUBLIC_ANALYTICS_DOMAIN` | `data-domain` for providers that need it (e.g. Plausible). |
+
+## Deploying
+
+The app needs a Node runtime: `/api/contact` is a server route, so this is not a
+static-export site. Vercel, Netlify, Cloudflare Workers, or any Node host will do.
+Vercel is zero-config for Next.js.
+
+**Vercel:** import the repo at [vercel.com/new](https://vercel.com/new). Framework,
+build command and output directory are all detected — accept the defaults.
+
+### Set this before the first production deploy
+
+`NEXT_PUBLIC_SITE_URL` must match the URL the site is actually served from. It is
+read at build time and it is what `metadataBase` resolves against, so it decides the
+canonical tag, the `og:url`, and the absolute URL of every generated Open Graph image.
+
+It defaults to `https://suhonlabs.com`. Deploy to a `*.vercel.app` URL without
+overriding it and the pages still render fine, but every canonical points at a domain
+that isn't live yet and social previews fetch their image from it — so link previews
+come back blank.
+
+| Stage | Value |
+| --- | --- |
+| Before the domain is attached | the deployment URL, e.g. `https://suhonlabs.vercel.app` |
+| After the domain is attached | `https://suhonlabs.com` |
+
+Changing it needs a rebuild, not just a redeploy — it is inlined at build time.
+
+### The rest of the environment
+
+Everything else is optional and the site renders correctly without it. `.env.example`
+documents each one. Worth setting early:
+
+- `CONTACT_FORWARD_URL` — until this is set the contact form returns 503 and tells
+  people it isn't connected. The form is live the moment it points at a form provider,
+  mail relay or webhook. See **Configuration** above.
+- `NEXT_PUBLIC_ANALYTICS_SRC` — no analytics script loads until this is set.
+
+### After deploying
+
+- `/sitemap.xml` and `/robots.txt` should show the real domain, not `suhonlabs.com`.
+- View source on `/` and confirm `og:image` resolves.
+- Submit the contact form once and check the message arrives.
 
 ## Structure
 

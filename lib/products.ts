@@ -1,0 +1,105 @@
+/**
+ * The product catalogue.
+ *
+ * Adding a product means adding an entry here. Everything that lists products
+ * — the home page, /products, the footer, the sitemap — reads from this array,
+ * so the catalogue grows without touching layout code.
+ *
+ * Status is deliberately explicit. `status: "available"` is the only value
+ * that unlocks store badges and download links, and a product only reaches it
+ * once the release genuinely exists.
+ */
+
+export type ProductStatus = "in-development" | "coming-soon" | "available";
+
+export type StoreLink = {
+  platform: "App Store" | "Google Play";
+  href: string;
+};
+
+export type Product = {
+  /** Stable key, also the URL segment when `hasPage` is true. */
+  slug: string;
+  name: string;
+  /** Shown under the name when the public name is not final yet. */
+  nameNote?: string;
+  category: string;
+  /** The product's own line — its voice, not the studio's. */
+  tagline: string;
+  /** One or two sentences for cards and listings. */
+  summary: string;
+  /** Longer description for the product page intro. */
+  description?: string;
+  audience: string;
+  status: ProductStatus;
+  /** Which artwork variant to render. See components/ProductArtwork.tsx. */
+  artwork: "daybyus" | "cat";
+  /** Product accent colour. Each product carries its own personality. */
+  accent: string;
+  accentSoft: string;
+  /** True when the product has a dedicated page at /products/<slug>. */
+  hasPage: boolean;
+  /**
+   * Only populated once a listing is genuinely live. An empty array renders
+   * no badges at all — never a "coming to the App Store" claim.
+   */
+  stores: StoreLink[];
+  order: number;
+};
+
+export const statusLabels: Record<ProductStatus, string> = {
+  "in-development": "In development",
+  "coming-soon": "Coming soon",
+  available: "Available",
+};
+
+export const products: Product[] = [
+  {
+    slug: "daybyus",
+    name: "DayByUs",
+    category: "Relationships",
+    tagline: "Closer, even when you're far apart.",
+    summary:
+      "A private space for long-distance couples to share everyday moments, preserve memories, and feel closer across the distance.",
+    description:
+      "Long-distance relationships rarely struggle with the big things. Couples call, they text, they plan visits. What goes missing is everything in between — the small updates, the half-finished thoughts, the ordinary days that quietly make up a relationship. DayByUs is built for that in-between.",
+    audience: "Long-distance couples",
+    // Update to "available" — and add the store links — only when the
+    // release actually exists. See PRD §11.
+    status: "in-development",
+    artwork: "daybyus",
+    accent: "#B4593F",
+    accentSoft: "#F3E3DC",
+    hasPage: true,
+    stores: [],
+    order: 1,
+  },
+  {
+    slug: "cat",
+    name: "Cat Product",
+    nameNote: "Working title — the public name is still being decided.",
+    category: "Companionship",
+    tagline: "A life with a cat, kept.",
+    summary:
+      "An app about the relationship between people and their cats: daily photos, small moments, and a timeline worth looking back on.",
+    audience: "Cat owners",
+    status: "in-development",
+    artwork: "cat",
+    accent: "#5F6B52",
+    accentSoft: "#E6EADF",
+    hasPage: false,
+    stores: [],
+    order: 2,
+  },
+];
+
+export const sortedProducts = [...products].sort((a, b) => a.order - b.order);
+
+export function getProduct(slug: string): Product | undefined {
+  return products.find((product) => product.slug === slug);
+}
+
+/** Products with their own page — used to generate routes and sitemap entries. */
+export function productsWithPages(): Product[] {
+  return sortedProducts.filter((product) => product.hasPage);
+}

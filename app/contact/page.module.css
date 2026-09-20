@@ -1,0 +1,54 @@
+.layout {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 4.5rem);
+  align-items: start;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.reasons {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  font-size: var(--step--1);
+  color: var(--ink-secondary);
+}
+
+.reasons li {
+  padding-left: 1rem;
+  position: relative;
+}
+
+.reasons li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 6px;
+  height: 1px;
+  background: var(--line-strong);
+}
+
+.emailBlock {
+  border-top: 1px solid var(--line);
+  padding-top: 1.25rem;
+  font-size: var(--step--1);
+  color: var(--ink-secondary);
+  line-height: 1.65;
+}
+
+.email {
+  font-family: var(--font-mono);
+  color: var(--ink);
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+  }
+}

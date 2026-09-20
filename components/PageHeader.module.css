@@ -1,0 +1,19 @@
+.header {
+  padding-block: clamp(3rem, 8vw, 6rem) clamp(2.25rem, 5vw, 3.5rem);
+  border-bottom: 1px solid var(--line);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  align-items: flex-start;
+}
+
+.title {
+  max-width: 20ch;
+}
+
+.lede {
+  max-width: 58ch;
+}

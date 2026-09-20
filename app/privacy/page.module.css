@@ -1,0 +1,37 @@
+.meta {
+  font-size: var(--step--1);
+  color: var(--ink-tertiary);
+}
+
+.note {
+  border: 1px solid var(--line);
+  background: var(--paper-raised);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.15rem, 3vw, 1.5rem);
+  font-size: var(--step--1);
+  line-height: 1.65;
+  color: var(--ink-secondary);
+  max-width: var(--measure);
+}
+
+.toc {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  font-size: var(--step--1);
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+  max-width: var(--measure);
+}
+
+.toc a {
+  color: var(--ink-secondary);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.toc a:hover {
+  color: var(--ink);
+  border-color: currentColor;
+}

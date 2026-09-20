@@ -29,8 +29,8 @@ export function renderOgImage({
   background = "#f2efe7",
 }: Options) {
   const studio = voice === "studio";
-  const ink = studio ? "#111111" : "#2a211d";
-  const muted = studio ? "#55534d" : "rgba(42, 33, 29, 0.72)";
+  const ink = studio ? "#111111" : "#2a2521";
+  const muted = studio ? "#55534d" : "rgba(42, 37, 33, 0.72)";
   const rule = studio ? "#111111" : `${accent}40`;
   const ruleWidth = studio ? 3 : 1;
   const sans = "Helvetica, Arial, sans-serif";
@@ -90,6 +90,8 @@ export function renderOgImage({
               letterSpacing: studio ? "-0.045em" : "-0.02em",
               textTransform: studio ? "uppercase" : "none",
               fontFamily: studio ? sans : "Georgia, serif",
+              /* A product's headline is set in the product's own colour. */
+              color: studio ? ink : accent,
               maxWidth: 1000,
             }}
           >

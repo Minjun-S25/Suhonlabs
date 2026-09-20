@@ -2,18 +2,41 @@
    DayByUs — the product's own page.
 
    Warm, quiet, soft-edged. The studio's monochrome shell stops at the top
-   strip; from there down the page runs on the product's palette, its serif
-   voice and rounded edges. Nothing in here should be "brutalised" to match
-   the rest of the site — the contrast is deliberate.
+   strip; from there down the page runs on the product's two brand colours,
+   its serif voice and rounded edges. Nothing in here should be "brutalised"
+   to match the rest of the site — the contrast is deliberate.
+
+   The palette is exactly two colours, set from the catalogue:
+     --accent       #AD644C  warm, primary — headings, buttons, the warm point
+     --accent-cool  #61708A  cool, secondary — labels, panels, borders, rules
+
+   Warm leads and cool answers it, roughly three to one. Everything else is
+   paper and a near-neutral ink, which is what keeps the page calm.
    ========================================================================== */
 
 .page {
   /* Product-local softness. The studio keeps its own tokens untouched. */
   --product-radius: 14px;
   --product-radius-sm: 10px;
-  --product-line: color-mix(in srgb, var(--accent) 22%, transparent);
+
+  /* Grounds and lines, all derived from the two brand colours. */
   --product-paper: color-mix(in srgb, var(--accent-soft) 38%, var(--paper));
-  --product-ink: color-mix(in srgb, var(--accent) 22%, #2a211d);
+  --product-card: color-mix(in srgb, var(--accent) 4%, #fffdfb);
+  --product-line: color-mix(in srgb, var(--accent) 24%, transparent);
+  /*
+   * A darkened shade of --accent-cool, used *only* where small uppercase
+   * text sits on the warm ground: the brand colour itself lands at 4.2:1
+   * there, short of the 4.5:1 AA needs for text that size. The brand colour
+   * is used untouched everywhere else — panels, borders, rules, the pill and
+   * the artwork, where it clears AA on its own ground.
+   */
+  --product-cool-deep: color-mix(in srgb, var(--accent-cool) 72%, #131a26);
+  --product-line-cool: color-mix(in srgb, var(--accent-cool) 30%, transparent);
+  --product-panel: color-mix(in srgb, var(--accent-cool) 7%, #fffdfb);
+
+  /* Body ink stays near-neutral so long passages read easily. */
+  --product-ink: #2a2521;
+  --product-ink-soft: color-mix(in srgb, var(--product-ink) 76%, transparent);
 
   background: var(--product-paper);
   color: var(--product-ink);
@@ -57,7 +80,7 @@
 .hero {
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--accent-soft) 70%, var(--paper)) 0%,
+    color-mix(in srgb, var(--accent-soft) 72%, var(--paper)) 0%,
     var(--product-paper) 100%
   );
 }
@@ -83,14 +106,15 @@
   gap: 0.75rem;
 }
 
+/* Metadata is the cool colour's first job. */
 .category {
   font-size: var(--step--1);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--accent) 70%, var(--product-ink));
+  color: var(--product-cool-deep);
 }
 
-/* The product speaks in serif — the studio never does. */
+/* The product speaks in serif, and in its warm colour. The studio never does. */
 .name {
   font-family: var(--font-serif-stack);
   font-weight: 400;
@@ -98,13 +122,13 @@
   line-height: 1.04;
   letter-spacing: -0.02em;
   text-transform: none;
-  color: var(--product-ink);
+  color: var(--accent);
   max-width: 14ch;
 }
 
 .summary {
   max-width: 46ch;
-  color: color-mix(in srgb, var(--product-ink) 78%, transparent);
+  color: var(--product-ink-soft);
   font-size: var(--step-1);
   line-height: 1.55;
 }
@@ -128,14 +152,14 @@
 }
 
 .section + .section {
-  border-top: 1px solid var(--product-line);
+  border-top: 1px solid var(--product-line-cool);
 }
 
 .eyebrow {
   font-size: var(--step--1);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--accent) 65%, var(--product-ink));
+  color: var(--product-cool-deep);
   margin-bottom: 0.7rem;
 }
 
@@ -147,7 +171,7 @@
   letter-spacing: -0.015em;
   line-height: 1.12;
   text-transform: none;
-  color: var(--product-ink);
+  color: var(--accent);
 }
 
 .heading {
@@ -165,11 +189,12 @@
   flex-direction: column;
   gap: 1.15rem;
   max-width: 50ch;
-  color: color-mix(in srgb, var(--product-ink) 78%, transparent);
+  color: var(--product-ink-soft);
   font-size: var(--step-1);
   line-height: 1.55;
 }
 
+/* The warm rule holds the three small things together. */
 .smallThings {
   list-style: none;
   display: flex;
@@ -208,15 +233,16 @@
 
 .closingBody {
   font-size: var(--step-1);
-  color: color-mix(in srgb, var(--product-ink) 75%, transparent);
+  color: var(--product-ink-soft);
   max-width: 34ch;
 }
 
 /* ---------------------------------------------------------------- Status */
 
+/* The cool colour's largest moment: one quiet panel. */
 .statusPanel {
-  background: color-mix(in srgb, var(--accent-soft) 45%, #fffdfa);
-  border: 1px solid var(--product-line);
+  background: var(--product-panel);
+  border: 1px solid var(--product-line-cool);
   border-radius: var(--product-radius);
   padding: clamp(1.5rem, 4vw, 2.5rem);
   display: flex;
@@ -231,7 +257,7 @@
 }
 
 .statusBody {
-  color: color-mix(in srgb, var(--product-ink) 78%, transparent);
+  color: var(--product-ink-soft);
   max-width: 48ch;
 }
 
@@ -246,16 +272,17 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
-  padding: 0.8em 1.4em;
-  margin-top: 0.25rem;
+  min-height: 52px;
+  padding: 0.7em 1.15em;
+  margin-top: 0.35rem;
   background: var(--accent);
-  color: #fff9f5;
+  /* White at 1.2rem/700 clears AA on the brand fill, which stays exact. */
+  color: #ffffff;
   border: 1px solid transparent;
   border-radius: var(--product-radius-sm);
-  font-size: var(--step--1);
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.005em;
   text-decoration: none;
   cursor: pointer;
   transition: background-color 160ms ease, transform 160ms ease;
@@ -271,16 +298,16 @@
 
 .supportNote {
   font-size: var(--step--1);
-  color: color-mix(in srgb, var(--product-ink) 65%, transparent);
+  color: var(--product-ink-soft);
   line-height: 1.7;
-  border-top: 1px solid var(--product-line);
+  border-top: 1px solid var(--product-line-cool);
   padding-top: 1rem;
   width: 100%;
 }
 
 .supportAddress {
   font-family: var(--font-mono);
-  color: var(--product-ink);
+  color: var(--accent-cool);
   overflow-wrap: break-word;
   text-decoration: underline;
   text-underline-offset: 0.2em;
@@ -293,14 +320,15 @@
 
 /* --------------------------------------------------------------------------
    Shared chrome, softened for the product world. The status marker is a
-   studio component; inside DayByUs it rounds off and takes the product's ink.
+   studio component; inside DayByUs it rounds off and takes the cool accent,
+   with the warm dot marking the state.
    -------------------------------------------------------------------------- */
 
 .page :global(.status) {
   border-radius: 999px;
-  border-color: var(--product-line);
-  color: color-mix(in srgb, var(--product-ink) 85%, transparent);
-  background: color-mix(in srgb, #fffdfa 70%, transparent);
+  border-color: var(--product-line-cool);
+  color: var(--accent-cool);
+  background: var(--product-card);
   letter-spacing: 0.12em;
 }
 

@@ -34,8 +34,18 @@ export type Product = {
   status: ProductStatus;
   /** Which artwork variant to render. See components/ProductArtwork.tsx. */
   artwork: "daybyus";
-  /** Product accent colour. Each product carries its own personality. */
+  /**
+   * The product's brand colours. These are exact values, not suggestions:
+   * they are the product's identity and must not be swapped for something
+   * close. They live inside the product's own world — its page and its own
+   * visuals — and never on studio-level UI.
+   *
+   *   accent     the primary warm colour
+   *   accentCool the secondary cool colour, used sparingly against it
+   *   accentSoft a large-area tint of `accent`, for washes and panels
+   */
   accent: string;
+  accentCool: string;
   accentSoft: string;
   /** True when the product has a dedicated page at /products/<slug>. */
   hasPage: boolean;
@@ -68,8 +78,11 @@ export const products: Product[] = [
     // release actually exists. See PRD §11.
     status: "in-development",
     artwork: "daybyus",
-    accent: "#B4593F",
-    accentSoft: "#F3E3DC",
+    // DayByUs brand colours — exact. Do not approximate or substitute.
+    accent: "#AD644C",
+    accentCool: "#61708A",
+    // A 14% tint of accent over warm paper, for washes behind artwork.
+    accentSoft: "#F2E3DC",
     hasPage: true,
     stores: [],
     order: 1,

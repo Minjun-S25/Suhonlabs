@@ -138,10 +138,27 @@ labels and navigation, sentence-case sans for body copy. Buttons are rectangular
 bordered; hover displaces them `-2px, -2px` and drops a hard `6px 6px 0` shadow in 120ms.
 Hard shadows are for buttons only — everything else is held by rules.
 
-**DayByUs — the product.** Warm, soft and serif, and it stays that way. Its palette
-(`accent` / `accentSoft` in `lib/products.ts`) belongs to the product: it appears on
-`/products/daybyus` and inside the product's own artwork, and nowhere else. Studio pages
-never borrow it, and the product is never restyled into the studio's language.
+**DayByUs — the product.** Warm, soft and serif, and it stays that way. Its palette is
+exactly two colours, set in `lib/products.ts` and used verbatim — never approximated or
+swapped for something close:
+
+| Token | Value | Where it goes |
+| --- | --- | --- |
+| `accent` | `#AD644C` | Headings, the primary button, the warm point in the artwork, the rule beside the small-things list |
+| `accentCool` | `#61708A` | Labels, the status panel and its border, section rules, the status pill, the cool point in the artwork |
+| `accentSoft` | `#F2E3DC` | A 14% tint of `accent`, for the hero wash and the ground behind the artwork |
+
+Warm leads and cool answers it, roughly three to one; everything else on the page is paper
+and a near-neutral ink, which is what keeps it calm. Both colours belong to the product:
+they appear on `/products/daybyus` and inside the product's own artwork, and nowhere else.
+Studio pages never borrow them, and the product is never restyled into the studio's
+language.
+
+One exception is documented in `app/products/daybyus/page.module.css`:
+`--product-cool-deep`, a darkened shade of `accentCool` used only for small uppercase
+labels on the warm ground, where the brand colour itself lands at 4.2:1 — short of the
+4.5:1 AA needs at that size. Everywhere it clears AA on its own ground, the brand colour
+is used untouched.
 
 Where the two meet — the product block on the home and products pages — the studio provides
 the frame (black rules, label row, square corners) and the product provides the picture. The

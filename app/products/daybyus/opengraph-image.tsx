@@ -11,7 +11,7 @@ export default function Image() {
     subtitle:
       "A private place for couples to share their days and keep what they don't want to forget.",
     voice: "product",
-    accent: "#B4593F",
-    background: "#F7EFEA",
+    accent: "#AD644C",
+    background: "#F8F1ED",
   });
 }

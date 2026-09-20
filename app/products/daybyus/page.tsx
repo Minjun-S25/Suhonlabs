@@ -46,6 +46,7 @@ export default function DayByUsPage() {
 
   const accentStyle = {
     "--accent": product.accent,
+    "--accent-cool": product.accentCool,
     "--accent-soft": product.accentSoft,
   } as React.CSSProperties;
 

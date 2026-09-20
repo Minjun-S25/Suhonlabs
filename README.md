@@ -28,8 +28,20 @@ rather than showing a placeholder.
 | Variable | Purpose |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, canonicals, sitemap and OG URLs. Defaults to `https://suhonlabs.com`. |
-| `NEXT_PUBLIC_CONTACT_EMAIL` | Public email address. While empty, the footer and contact page simply don't show one. |
 | `CONTACT_FORWARD_URL` | Where `/api/contact` posts submissions as JSON. While empty, the form tells people it isn't connected yet instead of dropping messages. |
+
+### Email addresses
+
+The three official mailboxes live in `emails` in `lib/site.ts`, not in the environment —
+they're facts about the studio, not deployment config:
+
+| Address | Used for | Shown on |
+| --- | --- | --- |
+| `Suhonlabs.buisness@outlook.com` | General, business, partnerships, press | Contact page, footer |
+| `Suhonlabs.help@outlook.com` | Product support and app questions | Contact page, DayByUs page |
+| `Suhonlabs.privacy@outlook.com` | Privacy, data and account requests | Contact page, footer, privacy policy, DayByUs privacy section |
+
+Spellings are exact as registered. Don't "correct" or alias them.
 | `CONTACT_FORWARD_TOKEN` | Optional `Authorization: Bearer` token for that request. |
 | `NEXT_PUBLIC_ANALYTICS_SRC` | Analytics script URL. Nothing loads while empty. |
 | `NEXT_PUBLIC_ANALYTICS_DOMAIN` | `data-domain` for providers that need it (e.g. Plausible). |

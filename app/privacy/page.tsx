@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { EmailLink } from "@/components/EmailLink";
 import { PageHeader } from "@/components/PageHeader";
-import { absoluteUrl, site } from "@/lib/site";
+import { absoluteUrl, emails } from "@/lib/site";
 import styles from "./page.module.css";
 
 const description =
@@ -32,6 +33,7 @@ const sections = [
   { id: "cookies", label: "Cookies" },
   { id: "sharing", label: "Sharing" },
   { id: "rights", label: "Your rights" },
+  { id: "contact", label: "Contacting us" },
   { id: "changes", label: "Changes" },
 ];
 
@@ -122,10 +124,28 @@ export default function PrivacyPage() {
             <h2 id="rights">Your rights</h2>
             <p>
               Depending on where you live, you may have the right to ask what information we hold
-              about you, to ask for a copy of it, to have it corrected, or to have it deleted.
-              Write to us through the{" "}
-              <Link href="/contact">contact page</Link> and we will respond.
-              {site.contactEmail ? ` You can also email ${site.contactEmail}.` : ""}
+              about you, to ask for a copy of it, to have it corrected, or to have it deleted. The
+              same address handles requests about a product account and the personal data attached
+              to it.
+            </p>
+            <p>
+              Email{" "}
+              <EmailLink className={styles.contactAddress} address={emails.privacy} />{" "}
+              and we will respond. Please say which request you are making, so we can act on it
+              without a round of questions.
+            </p>
+
+            <h2 id="contact">Contacting us</h2>
+            <p>
+              Privacy and data questions, including anything about your account or personal data,
+              go to{" "}
+              <EmailLink className={styles.contactAddress} address={emails.privacy} />
+              .
+            </p>
+            <p>
+              For anything else — general or business enquiries, or help with one of our apps —
+              see the <Link href="/contact">contact page</Link>, which lists the right address for
+              each.
             </p>
 
             <h2 id="changes">Changes to this page</h2>

@@ -1,7 +1,8 @@
 import Link from "next/link";
 
-import { site } from "@/lib/site";
+import { emails, site } from "@/lib/site";
 import { sortedProducts, statusLabels } from "@/lib/products";
+import { EmailLink } from "@/components/EmailLink";
 import { Wordmark } from "@/components/Wordmark";
 import styles from "./SiteFooter.module.css";
 
@@ -56,6 +57,9 @@ export function SiteFooter() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <EmailLink className={styles.email} address={emails.business} />
+              </li>
             </ul>
           </div>
 
@@ -67,13 +71,9 @@ export function SiteFooter() {
                   Privacy
                 </Link>
               </li>
-              {site.contactEmail ? (
-                <li>
-                  <a className={styles.link} href={`mailto:${site.contactEmail}`}>
-                    {site.contactEmail}
-                  </a>
-                </li>
-              ) : null}
+              <li>
+                <EmailLink className={styles.email} address={emails.privacy} />
+              </li>
             </ul>
           </div>
         </div>

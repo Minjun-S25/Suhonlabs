@@ -138,3 +138,25 @@
   flex-wrap: wrap;
   gap: 0.75rem;
 }
+
+.supportNote {
+  font-size: var(--step--1);
+  color: var(--ink-tertiary);
+  line-height: 1.65;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+  width: 100%;
+}
+
+.supportAddress {
+  font-family: var(--font-mono);
+  color: var(--ink);
+  overflow-wrap: break-word;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--line-strong);
+}
+
+.supportAddress:hover {
+  text-decoration-color: currentColor;
+}

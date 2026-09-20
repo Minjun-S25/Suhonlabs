@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 
 import { ContactForm } from "@/components/ContactForm";
+import { EmailLink } from "@/components/EmailLink";
 import { PageHeader } from "@/components/PageHeader";
-import { absoluteUrl, site } from "@/lib/site";
+import { absoluteUrl, contactChannels } from "@/lib/site";
 import styles from "./page.module.css";
 
 const description =
@@ -53,20 +54,18 @@ export default function ContactPage() {
             </ul>
 
             <div className={styles.emailBlock}>
-              {site.contactEmail ? (
-                <p>
-                  You can also email us directly at{" "}
-                  <a className={styles.email} href={`mailto:${site.contactEmail}`}>
-                    {site.contactEmail}
-                  </a>
-                  .
-                </p>
-              ) : (
-                <p>
-                  A public email address will be listed here once our official address is set up.
-                  Until then this form is the way to reach us.
-                </p>
-              )}
+              <h2 className="eyebrow" id="direct-title">
+                Or write to us directly
+              </h2>
+              <ul className={styles.channels} aria-labelledby="direct-title">
+                {contactChannels.map((channel) => (
+                  <li className={styles.channel} key={channel.address}>
+                    <EmailLink className={styles.email} address={channel.address} />
+                    <p className={styles.channelLabel}>{channel.label}</p>
+                    <p className={styles.channelBody}>{channel.description}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
           </aside>
         </div>

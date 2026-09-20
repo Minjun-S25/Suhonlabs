@@ -1,8 +1,8 @@
 /**
  * Single source of truth for studio-level facts, navigation and metadata
  * defaults. Nothing here should be invented: if a fact is not yet real
- * (an official email address, a store listing), it stays empty and the UI
- * omits it rather than showing a placeholder.
+ * (a store listing, a company address), it stays empty and the UI omits it
+ * rather than showing a placeholder.
  */
 
 export const site = {
@@ -17,9 +17,44 @@ export const site = {
   statement: "We build thoughtful software around the things people care about.",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://suhonlabs.com").replace(/\/$/, ""),
   locale: "en_US",
-  /** Empty until an official address exists. Never fill this with a guess. */
-  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || "",
 } as const;
+
+/**
+ * The studio's official mailboxes. These are real addresses, spelled exactly
+ * as they were registered — do not "correct" or alias them.
+ *
+ *   business — general enquiries, partnerships, press, anything commercial
+ *   support  — product questions and help with an app
+ *   privacy  — privacy policy questions, data and account requests
+ */
+export const emails = {
+  business: "Suhonlabs.buisness@outlook.com",
+  support: "Suhonlabs.help@outlook.com",
+  privacy: "Suhonlabs.privacy@outlook.com",
+} as const;
+
+/** Rendered as the "write to us directly" list on the contact page. */
+export const contactChannels: ReadonlyArray<{
+  address: string;
+  label: string;
+  description: string;
+}> = [
+  {
+    address: emails.business,
+    label: "General & business",
+    description: "Partnerships, press, business enquiries, and anything that doesn't fit below.",
+  },
+  {
+    address: emails.support,
+    label: "Product support",
+    description: "Questions about one of our apps, or help with something that isn't working.",
+  },
+  {
+    address: emails.privacy,
+    label: "Privacy & your data",
+    description: "Privacy questions, and requests about your personal data or account.",
+  },
+];
 
 export const nav: ReadonlyArray<{ href: string; label: string }> = [
   { href: "/", label: "Home" },

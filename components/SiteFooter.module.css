@@ -35,7 +35,7 @@
 
 .columns {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
   gap: 2rem;
 }
 
@@ -91,4 +91,19 @@
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
     align-items: start;
   }
+}
+
+/* Addresses are long; let them wrap rather than widen the column. */
+.email {
+  font-size: var(--step--1);
+  color: var(--ink-secondary);
+  text-decoration: none;
+  overflow-wrap: break-word;
+  transition: color 160ms ease;
+}
+
+.email:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }

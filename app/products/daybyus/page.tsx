@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { EmailLink } from "@/components/EmailLink";
 import { ProductArtwork } from "@/components/ProductArtwork";
 import { StatusPill } from "@/components/StatusPill";
 import { getProduct, statusLabels } from "@/lib/products";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, emails } from "@/lib/site";
 import styles from "./page.module.css";
 
 const product = getProduct("daybyus");
@@ -129,6 +130,10 @@ export default function DayByUsPage() {
               stores and how, before it is released. Until then we&rsquo;d rather say less than
               claim something we haven&rsquo;t finished building.
             </p>
+            <p>
+              Privacy or data questions in the meantime go to{" "}
+              <EmailLink address={emails.privacy} />.
+            </p>
           </div>
         </div>
       </section>
@@ -168,6 +173,11 @@ export default function DayByUsPage() {
                 </Link>
               </>
             )}
+
+            <p className={styles.supportNote}>
+              Questions about DayByUs, or help with the app once it&rsquo;s out:{" "}
+              <EmailLink className={styles.supportAddress} address={emails.support} />
+            </p>
           </div>
         </div>
       </section>

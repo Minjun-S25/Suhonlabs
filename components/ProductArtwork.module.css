@@ -1,10 +1,14 @@
 .frame {
   position: relative;
   width: 100%;
-  border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--line);
   background: var(--accent-soft, var(--paper-sunken));
+}
+
+/* Inside a studio frame the artwork runs to the rules; the frame is the edge. */
+.bleed {
+  border: 0;
 }
 
 .svg {

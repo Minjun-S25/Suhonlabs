@@ -1,12 +1,71 @@
+/* ==========================================================================
+   DayByUs — the product's own page.
+
+   Warm, quiet, soft-edged. The studio's monochrome shell stops at the top
+   strip; from there down the page runs on the product's palette, its serif
+   voice and rounded edges. Nothing in here should be "brutalised" to match
+   the rest of the site — the contrast is deliberate.
+   ========================================================================== */
+
+.page {
+  /* Product-local softness. The studio keeps its own tokens untouched. */
+  --product-radius: 14px;
+  --product-radius-sm: 10px;
+  --product-line: color-mix(in srgb, var(--accent) 22%, transparent);
+  --product-paper: color-mix(in srgb, var(--accent-soft) 38%, var(--paper));
+  --product-ink: color-mix(in srgb, var(--accent) 22%, #2a211d);
+
+  background: var(--product-paper);
+  color: var(--product-ink);
+}
+
+/* ----------------------------------------------------------- Studio strip */
+
+.strip {
+  background: var(--paper);
+  border-bottom: 1px solid var(--product-line);
+}
+
+.stripInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 46px;
+}
+
+.crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--step--2);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  padding-block: 0.5rem;
+  border-bottom: 2px solid transparent;
+}
+
+.crumb:hover {
+  border-bottom-color: var(--ink);
+}
+
+/* ------------------------------------------------------------------ Hero */
+
 .hero {
-  background: color-mix(in srgb, var(--accent-soft) 45%, var(--paper));
-  border-bottom: 1px solid var(--line);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent-soft) 70%, var(--paper)) 0%,
+    var(--product-paper) 100%
+  );
 }
 
 .heroInner {
   display: grid;
   gap: clamp(2rem, 5vw, 3.5rem);
-  padding-block: clamp(3rem, 7vw, 5.5rem);
+  padding-block: clamp(2.75rem, 7vw, 5.5rem);
   align-items: center;
 }
 
@@ -15,21 +74,6 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 1.1rem;
-}
-
-.crumb {
-  font-size: var(--step--1);
-  color: var(--ink-secondary);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.crumb:hover {
-  color: var(--ink);
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
 }
 
 .metaRow {
@@ -41,21 +85,34 @@
 
 .category {
   font-size: var(--step--1);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink-tertiary);
+  color: color-mix(in srgb, var(--accent) 70%, var(--product-ink));
 }
 
+/* The product speaks in serif — the studio never does. */
 .name {
+  font-family: var(--font-serif-stack);
+  font-weight: 400;
   font-size: var(--step-4);
-  letter-spacing: -0.035em;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  color: var(--product-ink);
+  max-width: 14ch;
 }
 
 .summary {
-  max-width: 50ch;
-  color: var(--ink-secondary);
+  max-width: 46ch;
+  color: color-mix(in srgb, var(--product-ink) 78%, transparent);
   font-size: var(--step-1);
-  line-height: 1.5;
+  line-height: 1.55;
+}
+
+/* Scoped past the artwork component's own rule, not racing it. */
+.page .artwork {
+  border-radius: var(--product-radius);
+  border-color: var(--product-line);
 }
 
 @media (min-width: 880px) {
@@ -64,74 +121,51 @@
   }
 }
 
-/* --------------------------------------------------------------- Themes */
+/* --------------------------------------------------------------- Sections */
+
+.section {
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+}
+
+.section + .section {
+  border-top: 1px solid var(--product-line);
+}
+
+.eyebrow {
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--accent) 65%, var(--product-ink));
+  margin-bottom: 0.7rem;
+}
+
+.heading,
+.closingTitle,
+.statusTitle {
+  font-family: var(--font-serif-stack);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+  text-transform: none;
+  color: var(--product-ink);
+}
+
+.heading {
+  font-size: var(--step-3);
+  max-width: 18ch;
+}
 
 .split {
   display: grid;
-  gap: clamp(2rem, 5vw, 4rem);
+  gap: clamp(1.75rem, 5vw, 4rem);
 }
-
-@media (min-width: 900px) {
-  .split {
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    align-items: start;
-  }
-}
-
-/* --------------------------------------------------------------- Status */
-
-.statusPanel {
-  background: var(--paper-raised);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  padding: clamp(1.5rem, 4vw, 2.5rem);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  max-width: 60ch;
-}
-
-.statusBody {
-  color: var(--ink-secondary);
-}
-
-.storeRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.supportNote {
-  font-size: var(--step--1);
-  color: var(--ink-tertiary);
-  line-height: 1.65;
-  border-top: 1px solid var(--line);
-  padding-top: 1rem;
-  width: 100%;
-}
-
-.supportAddress {
-  font-family: var(--font-mono);
-  color: var(--ink);
-  overflow-wrap: break-word;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-  text-decoration-color: var(--line-strong);
-}
-
-.supportAddress:hover {
-  text-decoration-color: currentColor;
-}
-
-/* ------------------------------------------------ Small things / closing */
 
 .body {
   display: flex;
   flex-direction: column;
   gap: 1.15rem;
-  max-width: 54ch;
-  color: var(--ink-secondary);
+  max-width: 50ch;
+  color: color-mix(in srgb, var(--product-ink) 78%, transparent);
   font-size: var(--step-1);
   line-height: 1.55;
 }
@@ -140,21 +174,137 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
   border-left: 2px solid var(--accent);
-  padding-left: 1.1rem;
-  color: var(--ink);
+  padding-left: 1.15rem;
+  color: var(--product-ink);
 }
 
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+  }
+}
+
+/* --------------------------------------------------------------- Closing */
+
+/* The quiet beat of the page: centred, unhurried, deliberately not a grid. */
 .closing {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  align-items: flex-start;
+  gap: 1.1rem;
+  align-items: center;
+  text-align: center;
+  max-width: 34rem;
+  margin-inline: auto;
+  padding-block: clamp(1rem, 4vw, 3rem);
+}
+
+.closingTitle {
+  font-size: var(--step-3);
+  max-width: 16ch;
 }
 
 .closingBody {
   font-size: var(--step-1);
-  color: var(--ink-secondary);
-  max-width: 44ch;
+  color: color-mix(in srgb, var(--product-ink) 75%, transparent);
+  max-width: 34ch;
+}
+
+/* ---------------------------------------------------------------- Status */
+
+.statusPanel {
+  background: color-mix(in srgb, var(--accent-soft) 45%, #fffdfa);
+  border: 1px solid var(--product-line);
+  border-radius: var(--product-radius);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 58ch;
+}
+
+.statusTitle {
+  font-size: var(--step-2);
+}
+
+.statusBody {
+  color: color-mix(in srgb, var(--product-ink) 78%, transparent);
+  max-width: 48ch;
+}
+
+.storeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* The product's button: soft corners, warm fill, a gentle press. */
+.productButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.8em 1.4em;
+  margin-top: 0.25rem;
+  background: var(--accent);
+  color: #fff9f5;
+  border: 1px solid transparent;
+  border-radius: var(--product-radius-sm);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.productButton:hover {
+  background: color-mix(in srgb, var(--accent) 88%, #000);
+}
+
+.productButton:active {
+  transform: translateY(1px);
+}
+
+.supportNote {
+  font-size: var(--step--1);
+  color: color-mix(in srgb, var(--product-ink) 65%, transparent);
+  line-height: 1.7;
+  border-top: 1px solid var(--product-line);
+  padding-top: 1rem;
+  width: 100%;
+}
+
+.supportAddress {
+  font-family: var(--font-mono);
+  color: var(--product-ink);
+  overflow-wrap: break-word;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+.supportAddress:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Shared chrome, softened for the product world. The status marker is a
+   studio component; inside DayByUs it rounds off and takes the product's ink.
+   -------------------------------------------------------------------------- */
+
+.page :global(.status) {
+  border-radius: 999px;
+  border-color: var(--product-line);
+  color: color-mix(in srgb, var(--product-ink) 85%, transparent);
+  background: color-mix(in srgb, #fffdfa 70%, transparent);
+  letter-spacing: 0.12em;
+}
+
+.page :global(.status__dot) {
+  border-radius: 50%;
+  background: var(--accent);
 }

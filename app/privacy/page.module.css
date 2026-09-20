@@ -1,12 +1,35 @@
-.meta {
-  font-size: var(--step--1);
-  color: var(--ink-tertiary);
+.layout {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+.tocNav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr);
+  }
+
+  .tocNav {
+    position: sticky;
+    top: 2rem;
+    border-bottom: 0;
+    padding-bottom: 0;
+    border-right: 1px solid var(--line);
+    padding-right: 1.5rem;
+  }
 }
 
 .note {
-  border: 1px solid var(--line);
+  border: var(--rule-w) solid var(--rule);
   background: var(--paper-raised);
-  border-radius: var(--radius-lg);
   padding: clamp(1.15rem, 3vw, 1.5rem);
   font-size: var(--step--1);
   line-height: 1.65;
@@ -19,21 +42,37 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem 1.25rem;
-  font-size: var(--step--1);
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--line);
-  max-width: var(--measure);
 }
 
 .toc a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5em;
+  font-size: var(--step--2);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--ink-secondary);
   text-decoration: none;
-  border-bottom: 1px solid var(--line-strong);
+  border-bottom: 2px solid transparent;
+  padding-block: 0.15rem 2px;
+}
+
+.toc a span:first-child {
+  color: var(--ink-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 900px) {
+  .toc {
+    flex-direction: column;
+    gap: 0.55rem;
+  }
 }
 
 .toc a:hover {
   color: var(--ink);
-  border-color: currentColor;
+  border-bottom-color: var(--ink);
 }
 
 .contactAddress {

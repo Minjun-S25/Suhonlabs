@@ -33,6 +33,14 @@ const smallThings = [
   "A photo they would’ve shown you if you were there.",
 ];
 
+/**
+ * Inside the product, the product leads.
+ *
+ * The studio shell stays around the edges — the masthead, the footer, and one
+ * thin strip of SuhonLabs metadata at the top of the page — but everything
+ * below it belongs to DayByUs: its colour, its serif voice, softer edges and
+ * warmer ground. Nothing here is restyled to match the studio.
+ */
 export default function DayByUsPage() {
   if (!product) notFound();
 
@@ -42,17 +50,23 @@ export default function DayByUsPage() {
   } as React.CSSProperties;
 
   return (
-    <div style={accentStyle}>
+    <div className={styles.page} style={accentStyle}>
+      {/* The one piece of studio frame kept inside the product, for continuity. */}
+      <div className={styles.strip}>
+        <div className={`container ${styles.stripInner}`}>
+          <Link className={styles.crumb} href="/products">
+            <span aria-hidden="true">←</span>
+            <span>Products</span>
+          </Link>
+          <p className="label label--muted">SuhonLabs / Product 01</p>
+        </div>
+      </div>
+
       <section className={styles.hero} aria-labelledby="product-name">
         <div className={`container ${styles.heroInner}`}>
           <div className={styles.heroBody}>
-            <Link className={styles.crumb} href="/products">
-              <span aria-hidden="true">←</span>
-              <span>Products</span>
-            </Link>
-
             <div className={styles.metaRow}>
-              <span className={styles.category}>DayByUs</span>
+              <span className={styles.category}>{product.category}</span>
               <StatusPill status={product.status} />
             </div>
 
@@ -62,15 +76,17 @@ export default function DayByUsPage() {
             <p className={styles.summary}>{product.description}</p>
           </div>
 
-          <ProductArtwork product={product} />
+          <ProductArtwork product={product} className={styles.artwork} />
         </div>
       </section>
 
-      <section className="section" aria-labelledby="small-things-title">
+      <section className={styles.section} aria-labelledby="small-things-title">
         <div className={`container ${styles.split}`}>
           <div>
-            <p className="eyebrow">What it&rsquo;s for</p>
-            <h2 id="small-things-title">It&rsquo;s usually the small things you miss.</h2>
+            <p className={styles.eyebrow}>What it&rsquo;s for</p>
+            <h2 className={styles.heading} id="small-things-title">
+              It&rsquo;s usually the small things you miss.
+            </h2>
           </div>
 
           <div className={styles.body}>
@@ -85,22 +101,24 @@ export default function DayByUsPage() {
         </div>
       </section>
 
-      <section className="section" aria-labelledby="private-title">
+      <section className={styles.section} aria-labelledby="private-title">
         <div className="container">
           <div className={styles.closing}>
-            <h2 id="private-title">Just for the two of you.</h2>
-            <p className={styles.closingBody}>
-              No followers. No public profile. No audience.
-            </p>
+            <h2 className={styles.closingTitle} id="private-title">
+              Just for the two of you.
+            </h2>
+            <p className={styles.closingBody}>No followers. No public profile. No audience.</p>
           </div>
         </div>
       </section>
 
-      <section className="section section--tight" aria-labelledby="status-title">
+      <section className={styles.section} aria-labelledby="status-title">
         <div className="container">
           <div className={styles.statusPanel}>
-            <p className="eyebrow">Status</p>
-            <h2 id="status-title">{statusLabels[product.status]}</h2>
+            <p className={styles.eyebrow}>Status</p>
+            <h2 className={styles.statusTitle} id="status-title">
+              {statusLabels[product.status]}
+            </h2>
 
             {product.stores.length > 0 ? (
               <>
@@ -108,7 +126,7 @@ export default function DayByUsPage() {
                 <div className={styles.storeRow}>
                   {product.stores.map((store) => (
                     <a
-                      className="button button--primary"
+                      className={styles.productButton}
                       key={store.platform}
                       href={store.href}
                       rel="noopener"
@@ -124,7 +142,7 @@ export default function DayByUsPage() {
                   DayByUs is still being built. It isn&rsquo;t on the App Store or Google Play
                   yet, and this page will say so the day that changes.
                 </p>
-                <Link className="button button--primary" href="/contact">
+                <Link className={styles.productButton} href="/contact">
                   Ask us about DayByUs
                 </Link>
               </>

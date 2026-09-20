@@ -3,8 +3,8 @@ import styles from "./ProductArtwork.module.css";
 
 type Props = {
   product: Pick<Product, "artwork" | "accent" | "accentSoft" | "name">;
-  /** Rendered at a larger scale on product pages. */
-  priority?: boolean;
+  /** Drops the artwork's own edge when a studio frame already provides one. */
+  bleed?: boolean;
   className?: string;
 };
 
@@ -13,14 +13,17 @@ type Props = {
  * product's own accent colour — no mock screenshots, no stock imagery, nothing
  * that implies a feature the product does not have yet.
  */
-export function ProductArtwork({ product, className }: Props) {
+export function ProductArtwork({ product, bleed = false, className }: Props) {
   const style = {
     "--accent": product.accent,
     "--accent-soft": product.accentSoft,
   } as React.CSSProperties;
 
   return (
-    <div className={[styles.frame, className].filter(Boolean).join(" ")} style={style}>
+    <div
+      className={[styles.frame, bleed ? styles.bleed : "", className].filter(Boolean).join(" ")}
+      style={style}
+    >
       <DayByUsArt name={product.name} />
     </div>
   );

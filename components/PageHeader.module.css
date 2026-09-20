@@ -1,19 +1,56 @@
 .header {
-  padding-block: clamp(3rem, 8vw, 6rem) clamp(2.25rem, 5vw, 3.5rem);
-  border-bottom: 1px solid var(--line);
+  padding-block: clamp(2rem, 4vw, 3rem) clamp(2.5rem, 6vw, 4.5rem);
+  border-bottom: var(--rule-w) solid var(--rule);
 }
 
-.inner {
+.labelRow {
   display: flex;
-  flex-direction: column;
-  gap: 1.15rem;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 1rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.grid {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: end;
 }
 
 .title {
-  max-width: 20ch;
+  font-size: var(--step-4);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  max-width: 44ch;
 }
 
 .lede {
-  max-width: 58ch;
+  font-size: var(--step-1);
+  line-height: 1.4;
+  color: var(--ink-secondary);
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  }
+
+  .aside {
+    border-left: var(--rule-w) solid var(--rule);
+    padding-left: clamp(1.25rem, 2.5vw, 2rem);
+    padding-block: 0.35rem;
+    max-width: none;
+  }
 }

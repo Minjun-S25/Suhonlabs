@@ -7,6 +7,11 @@ type Options = {
   eyebrow: string;
   title: string;
   subtitle: string;
+  /**
+   * "studio" is the SuhonLabs card: paper, ink, heavy uppercase sans, rules.
+   * "product" lets a product bring its own colour and its softer serif voice.
+   */
+  voice?: "studio" | "product";
   accent?: string;
   background?: string;
 };
@@ -19,9 +24,17 @@ export function renderOgImage({
   eyebrow,
   title,
   subtitle,
-  accent = "#17150f",
-  background = "#faf8f5",
+  voice = "studio",
+  accent = "#111111",
+  background = "#f2efe7",
 }: Options) {
+  const studio = voice === "studio";
+  const ink = studio ? "#111111" : "#2a211d";
+  const muted = studio ? "#55534d" : "rgba(42, 33, 29, 0.72)";
+  const rule = studio ? "#111111" : `${accent}40`;
+  const ruleWidth = studio ? 3 : 1;
+  const sans = "Helvetica, Arial, sans-serif";
+
   return new ImageResponse(
     (
       <div
@@ -32,53 +45,76 @@ export function renderOgImage({
           flexDirection: "column",
           justifyContent: "space-between",
           background,
-          color: "#17150f",
-          padding: "72px 80px",
-          fontFamily: "Georgia, serif",
+          color: ink,
+          padding: "56px 64px",
+          fontFamily: sans,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "baseline",
+            justifyContent: "space-between",
+            borderBottom: `${ruleWidth}px solid ${rule}`,
+            paddingBottom: 18,
+          }}
+        >
           <div
             style={{
-              width: 34,
-              height: 34,
-              borderRadius: 9,
-              background: accent,
-              display: "flex",
-            }}
-          />
-          <div style={{ fontSize: 30, letterSpacing: "-0.01em" }}>SuhonLabs</div>
-        </div>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <div
-            style={{
-              fontSize: 22,
-              letterSpacing: "0.16em",
+              fontSize: 24,
+              fontWeight: 800,
+              letterSpacing: "0.02em",
               textTransform: "uppercase",
-              color: "#7a7266",
-              fontFamily: "Helvetica, Arial, sans-serif",
+            }}
+          >
+            SuhonLabs®
+          </div>
+          <div
+            style={{
+              fontSize: 20,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: muted,
             }}
           >
             {eyebrow}
           </div>
-          <div style={{ fontSize: 76, lineHeight: 1.08, letterSpacing: "-0.03em", maxWidth: 940 }}>
-            {title}
-          </div>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
           <div
             style={{
-              fontSize: 28,
-              lineHeight: 1.45,
-              color: "#4d473d",
-              maxWidth: 860,
-              fontFamily: "Helvetica, Arial, sans-serif",
+              fontSize: studio ? 104 : 82,
+              fontWeight: studio ? 800 : 400,
+              lineHeight: studio ? 0.92 : 1.06,
+              letterSpacing: studio ? "-0.045em" : "-0.02em",
+              textTransform: studio ? "uppercase" : "none",
+              fontFamily: studio ? sans : "Georgia, serif",
+              maxWidth: 1000,
             }}
           >
+            {title}
+          </div>
+          <div style={{ fontSize: 28, lineHeight: 1.4, color: muted, maxWidth: 820 }}>
             {subtitle}
           </div>
         </div>
 
-        <div style={{ display: "flex", height: 6, background: accent, width: 132 }} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            borderTop: `${ruleWidth}px solid ${rule}`,
+            paddingTop: 18,
+            fontSize: 20,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: muted,
+          }}
+        >
+          <div>Independent software studio</div>
+          <div>suhonlabs.com</div>
+        </div>
       </div>
     ),
     ogSize,

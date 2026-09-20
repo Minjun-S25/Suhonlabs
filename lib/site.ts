@@ -9,10 +9,15 @@ export const site = {
   name: "SuhonLabs",
   /** The line under the wordmark in the footer. */
   tagline: "Apps made in-house.",
+  /** Compact uppercase descriptor used as metadata across the site. */
+  descriptor: "Independent software studio",
+  disciplines: "Product / Design / Engineering",
+  /** The year the studio stamps on its own pages. */
+  year: "2026",
   description:
     "SuhonLabs is a small software studio building our own consumer apps. We're starting with DayByUs, for couples doing long distance.",
   /** Supporting line under the home hero. */
-  positioning: "SuhonLabs is a small software studio building our own products.",
+  positioning: "We're a small software studio. We build our own apps, and we run them ourselves.",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://suhonlabs.com").replace(/\/$/, ""),
   locale: "en_US",
 } as const;
@@ -54,8 +59,11 @@ export const contactChannels: ReadonlyArray<{
   },
 ];
 
+/**
+ * Primary navigation. Home is deliberately absent: the masthead wordmark is
+ * the way back, and the header numbers these entries [01]–[03].
+ */
 export const nav: ReadonlyArray<{ href: string; label: string }> = [
-  { href: "/", label: "Home" },
   { href: "/products", label: "Products" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -63,7 +71,6 @@ export const nav: ReadonlyArray<{ href: string; label: string }> = [
 
 export const footerNav: ReadonlyArray<{ href: string; label: string }> = [
   { href: "/products", label: "Products" },
-  { href: "/products/daybyus", label: "DayByUs" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
   { href: "/privacy", label: "Privacy" },
@@ -78,3 +85,19 @@ export const analytics = {
 export function absoluteUrl(path = "/"): string {
   return `${site.url}${path.startsWith("/") ? path : `/${path}`}`;
 }
+
+/**
+ * Founder / studio photograph for the About page.
+ *
+ * Left null until a real photo exists, so nothing placeholder-shaped ever
+ * ships. To add one: put the file in /public and fill this in —
+ *   { src: "/founder.jpg", alt: "…", width: 1200, height: 1500 }
+ * The About page renders it as an editorial image: rectangular crop, no
+ * avatar, with FOUNDER / PRODUCT / DESIGN / ENGINEERING set beside it.
+ */
+export const founder: {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+} | null = null;

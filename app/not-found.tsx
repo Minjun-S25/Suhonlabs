@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageHeader } from "@/components/PageHeader";
+import { nav } from "@/lib/site";
+import styles from "./not-found.module.css";
 
 export const metadata: Metadata = {
   title: "Page not found",
@@ -12,29 +14,31 @@ export default function NotFound() {
   return (
     <>
       <PageHeader
-        eyebrow="404"
-        title="That page isn't here."
-        lede="The link may be old, or the page may have moved. Everything the site has is a click away below."
+        label="404 / Not found"
+        title="That page isn’t here."
+        lede="The link may be old, or the page may have moved."
       />
 
       <section className="section">
-        <div className="container container--narrow">
-          <div className="prose">
-            <ul>
-              <li>
-                <Link href="/">Home</Link>
-              </li>
-              <li>
-                <Link href="/products">Products</Link>
-              </li>
-              <li>
-                <Link href="/about">About</Link>
-              </li>
-              <li>
-                <Link href="/contact">Contact</Link>
-              </li>
-            </ul>
+        <div className="container">
+          <div className="sectionLabel">
+            <p className="label">Everything the site has</p>
           </div>
+
+          <ul className={styles.links}>
+            <li>
+              <Link className="button" href="/">
+                Home
+              </Link>
+            </li>
+            {nav.map((item) => (
+              <li key={item.href}>
+                <Link className="button" href={item.href}>
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </>

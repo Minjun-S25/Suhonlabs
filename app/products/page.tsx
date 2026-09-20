@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
+import { ContactCta } from "@/components/ContactCta";
 import { PageHeader } from "@/components/PageHeader";
-import { ProductCard } from "@/components/ProductCard";
+import { ProductFeature } from "@/components/ProductFeature";
 import { sortedProducts } from "@/lib/products";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, site } from "@/lib/site";
 
 const description =
-  "The apps SuhonLabs builds and runs. Right now we're focused on DayByUs, for couples doing long distance.";
+  "The apps SuhonLabs builds and runs. Right now we're building DayByUs, for couples doing long distance.";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -22,31 +22,31 @@ export const metadata: Metadata = {
 };
 
 export default function ProductsPage() {
+  const count = sortedProducts.length;
+
   return (
     <>
-      <PageHeader title="Products" lede="Right now, we’re focused on DayByUs." />
+      <PageHeader
+        label="01 / Products"
+        meta={`SuhonLabs / ${site.year}`}
+        title="Products"
+        lede="Right now, we’re building DayByUs. We’ll add to this page when there’s something real to add."
+      />
 
       <section className="section">
         <div className="container">
-          {sortedProducts.map((product, index) => (
-            <ProductCard key={product.slug} product={product} index={index} />
+          <div className="sectionLabel">
+            <p className="label">{count === 1 ? "One product" : `${count} products`}</p>
+            <p className="label label--muted">Built and run in-house</p>
+          </div>
+
+          {sortedProducts.map((product) => (
+            <ProductFeature key={product.slug} product={product} detailed />
           ))}
         </div>
       </section>
 
-      <section className="section section--tight">
-        <div className="container">
-          <div className="prose">
-            <p className="lede">More will come when they&rsquo;re ready.</p>
-            <p>
-              <Link className="arrow-link" href="/contact">
-                <span>Tell us what you&rsquo;d want us to build</span>
-                <span aria-hidden="true">→</span>
-              </Link>
-            </p>
-          </div>
-        </div>
-      </section>
+      <ContactCta index="02" />
     </>
   );
 }

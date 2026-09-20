@@ -8,6 +8,6 @@ export default function Image() {
   return renderOgImage({
     eyebrow: "Products",
     title: "Products",
-    subtitle: "Right now, we're focused on DayByUs.",
+    subtitle: "Right now, we're building DayByUs.",
   });
 }

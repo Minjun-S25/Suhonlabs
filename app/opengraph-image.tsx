@@ -1,14 +1,13 @@
 import { ogContentType, ogSize, renderOgImage } from "@/lib/og";
 
-export const alt = "SuhonLabs — Software for the things that matter.";
+export const alt = "SuhonLabs — We make apps.";
 export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function Image() {
   return renderOgImage({
     eyebrow: "Independent software studio",
-    title: "Software for the things that matter.",
-    subtitle:
-      "Thoughtful consumer apps for relationships, memories, and everyday experiences.",
+    title: "We make apps.",
+    subtitle: "A small software studio building our own products.",
   });
 }

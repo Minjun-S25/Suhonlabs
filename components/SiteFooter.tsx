@@ -16,7 +16,7 @@ export function SiteFooter() {
           <Link className={styles.brand} href="/" aria-label="SuhonLabs — home">
             <Wordmark />
           </Link>
-          <p className={styles.statement}>{site.statement}</p>
+          <p className={styles.statement}>{site.tagline}</p>
         </div>
 
         <div className={styles.columns}>
@@ -81,7 +81,6 @@ export function SiteFooter() {
 
       <div className={`container ${styles.baseline}`}>
         <p>© {year} SuhonLabs. All rights reserved.</p>
-        <p>{site.tagline}</p>
       </div>
     </footer>
   );

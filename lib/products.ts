@@ -58,11 +58,11 @@ export const products: Product[] = [
     slug: "daybyus",
     name: "DayByUs",
     category: "Relationships",
-    tagline: "Closer, even when you're far apart.",
+    tagline: "For couples doing long distance.",
     summary:
-      "A private space for long-distance couples to share everyday moments, preserve memories, and feel closer across the distance.",
+      "A private place to share the small parts of your day, keep memories, and feel a little closer when you’re apart.",
     description:
-      "Long-distance relationships rarely struggle with the big things. Couples call, they text, they plan visits. What goes missing is everything in between — the small updates, the half-finished thoughts, the ordinary days that quietly make up a relationship. DayByUs is built for that in-between.",
+      "DayByUs gives couples a private place to share their days and keep the things they don’t want to forget.",
     audience: "Long-distance couples",
     // Update to "available" — and add the store links — only when the
     // release actually exists. See PRD §11.

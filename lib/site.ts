@@ -7,14 +7,12 @@
 
 export const site = {
   name: "SuhonLabs",
-  /** One-line answer to "what is this?" — used in metadata and the footer. */
-  tagline: "Software for the things that matter.",
+  /** The line under the wordmark in the footer. */
+  tagline: "Apps made in-house.",
   description:
-    "SuhonLabs is an independent software studio creating thoughtful consumer apps for relationships, memories, and everyday experiences.",
-  /** Longer positioning line, used in the hero and on About. */
-  positioning:
-    "SuhonLabs is an independent software studio creating thoughtful products for relationships, memories, and everyday life.",
-  statement: "We build thoughtful software around the things people care about.",
+    "SuhonLabs is a small software studio building our own consumer apps. We're starting with DayByUs, for couples doing long distance.",
+  /** Supporting line under the home hero. */
+  positioning: "SuhonLabs is a small software studio building our own products.",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://suhonlabs.com").replace(/\/$/, ""),
   locale: "en_US",
 } as const;
@@ -42,12 +40,12 @@ export const contactChannels: ReadonlyArray<{
   {
     address: emails.business,
     label: "General & business",
-    description: "Partnerships, press, business enquiries, and anything that doesn't fit below.",
+    description: "Partnerships, press, business enquiries, and anything that doesn’t fit below.",
   },
   {
     address: emails.support,
     label: "Product support",
-    description: "Questions about one of our apps, or help with something that isn't working.",
+    description: "Questions about one of our apps, or help with something that isn’t working.",
   },
   {
     address: emails.privacy,

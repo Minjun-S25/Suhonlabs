@@ -7,7 +7,7 @@ import { sortedProducts } from "@/lib/products";
 import { absoluteUrl } from "@/lib/site";
 
 const description =
-  "The apps SuhonLabs builds and runs. DayByUs, a private space for long-distance couples, is the first.";
+  "The apps SuhonLabs builds and runs. Right now we're focused on DayByUs, for couples doing long distance.";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -24,11 +24,7 @@ export const metadata: Metadata = {
 export default function ProductsPage() {
   return (
     <>
-      <PageHeader
-        eyebrow="Products"
-        title="Every product is its own brand."
-        lede="SuhonLabs designs, builds and operates everything it releases. One product so far, built the way we intend to build the next one."
-      />
+      <PageHeader title="Products" lede="Right now, we’re focused on DayByUs." />
 
       <section className="section">
         <div className="container">
@@ -39,14 +35,9 @@ export default function ProductsPage() {
       </section>
 
       <section className="section section--tight">
-        <div className="container container--narrow">
+        <div className="container">
           <div className="prose">
-            <h2>More is on the way</h2>
-            <p>
-              The catalogue is small on purpose. We start products we intend to run for a long
-              time, which means we start few of them. When the next one is ready to talk about,
-              it will appear here.
-            </p>
+            <p className="lede">More will come when they&rsquo;re ready.</p>
             <p>
               <Link className="arrow-link" href="/contact">
                 <span>Tell us what you&rsquo;d want us to build</span>

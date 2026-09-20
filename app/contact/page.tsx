@@ -7,7 +7,7 @@ import { absoluteUrl, contactChannels } from "@/lib/site";
 import styles from "./page.module.css";
 
 const description =
-  "Get in touch with SuhonLabs about a product, a partnership, press, or anything else worth saying.";
+  "Get in touch with SuhonLabs. Questions about the studio or DayByUs, partnerships, press, or feedback.";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -21,38 +21,20 @@ export const metadata: Metadata = {
   twitter: { title: "Contact — SuhonLabs", description },
 };
 
-const reasons = [
-  "General questions",
-  "Questions about a product",
-  "Partnerships",
-  "Business enquiries",
-  "Press",
-  "Feedback — including the critical kind",
-];
-
 export default function ContactPage() {
   return (
     <>
       <PageHeader
         eyebrow="Contact"
-        title="Say hello."
-        lede="One small team reads everything that arrives here. We answer real messages; we're less good at generic outreach."
+        title="Get in touch"
+        lede="Questions about SuhonLabs or DayByUs? Send us a message."
       />
 
       <section className="section">
         <div className={`container ${styles.layout}`}>
           <ContactForm />
 
-          <aside className={styles.aside} aria-labelledby="reasons-title">
-            <h2 className="eyebrow" id="reasons-title">
-              What people write to us about
-            </h2>
-            <ul className={styles.reasons}>
-              {reasons.map((reason) => (
-                <li key={reason}>{reason}</li>
-              ))}
-            </ul>
-
+          <aside className={styles.aside} aria-labelledby="direct-title">
             <div className={styles.emailBlock}>
               <h2 className="eyebrow" id="direct-title">
                 Or write to us directly

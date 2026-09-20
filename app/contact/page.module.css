@@ -10,33 +10,7 @@
   gap: 1.25rem;
 }
 
-.reasons {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  font-size: var(--step--1);
-  color: var(--ink-secondary);
-}
-
-.reasons li {
-  padding-left: 1rem;
-  position: relative;
-}
-
-.reasons li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.72em;
-  width: 6px;
-  height: 1px;
-  background: var(--line-strong);
-}
-
 .emailBlock {
-  border-top: 1px solid var(--line);
-  padding-top: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;

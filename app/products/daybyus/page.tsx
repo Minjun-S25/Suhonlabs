@@ -12,7 +12,7 @@ import styles from "./page.module.css";
 const product = getProduct("daybyus");
 
 const description =
-  "DayByUs is a private space for long-distance couples to share everyday moments, preserve memories, and feel closer across the distance.";
+  "DayByUs gives couples a private place to share their days and keep the things they don't want to forget.";
 
 export const metadata: Metadata = {
   title: "DayByUs",
@@ -26,27 +26,11 @@ export const metadata: Metadata = {
   twitter: { title: "DayByUs — SuhonLabs", description },
 };
 
-const themes = [
-  {
-    name: "Everyday moments",
-    body: "The things too small to schedule a call about. A window seat, a bad haircut, the exact coffee you always order — shared as they happen, read whenever the other person wakes up.",
-  },
-  {
-    name: "Shared memories",
-    body: "Photos and notes that stay together instead of scattering across three chat apps and a camera roll neither of you can search.",
-  },
-  {
-    name: "Milestones",
-    body: "The dates a relationship is built on, from the first message to the next flight, kept somewhere you both can see them.",
-  },
-  {
-    name: "Small updates",
-    body: "Low-effort, low-pressure ways to say where you are and how you're doing, without either of you feeling watched.",
-  },
-  {
-    name: "A space for two",
-    body: "No feed, no followers, no audience. DayByUs is for one relationship at a time.",
-  },
+/** The everyday things that go missing at a distance. */
+const smallThings = [
+  "What they ate.",
+  "Something funny that happened.",
+  "A photo they would’ve shown you if you were there.",
 ];
 
 export default function DayByUsPage() {
@@ -68,71 +52,45 @@ export default function DayByUsPage() {
             </Link>
 
             <div className={styles.metaRow}>
-              <span className={styles.category}>{product.category}</span>
+              <span className={styles.category}>DayByUs</span>
               <StatusPill status={product.status} />
             </div>
 
             <h1 className={styles.name} id="product-name">
-              {product.name}
+              Long distance is hard enough.
             </h1>
-            <p className={styles.tagline}>{product.tagline}</p>
-            <p className={styles.summary}>{product.summary}</p>
+            <p className={styles.summary}>{product.description}</p>
           </div>
 
           <ProductArtwork product={product} />
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="prose">
-            <p className="lede">{product.description}</p>
-            <p>
-              Distance doesn&rsquo;t usually break a relationship in one dramatic moment. It wears
-              it down quietly, by removing the ordinary. DayByUs is an attempt to give a couple
-              somewhere to keep that ordinary — a shared, private record of two lives that are
-              being lived apart for now.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="section" aria-labelledby="themes-title">
+      <section className="section" aria-labelledby="small-things-title">
         <div className={`container ${styles.split}`}>
           <div>
-            <p className="eyebrow">What it&rsquo;s about</p>
-            <h2 id="themes-title">Closeness, not messaging.</h2>
+            <p className="eyebrow">What it&rsquo;s for</p>
+            <h2 id="small-things-title">It&rsquo;s usually the small things you miss.</h2>
           </div>
 
-          <ul className={styles.themes}>
-            {themes.map((theme) => (
-              <li className={styles.theme} key={theme.name}>
-                <h3 className={styles.themeName}>{theme.name}</h3>
-                <p className={styles.themeBody}>{theme.body}</p>
-              </li>
-            ))}
-          </ul>
+          <div className={styles.body}>
+            <p>Not the big updates.</p>
+            <ul className={styles.smallThings}>
+              {smallThings.map((thing) => (
+                <li key={thing}>{thing}</li>
+              ))}
+            </ul>
+            <p>DayByUs is for those parts.</p>
+          </div>
         </div>
       </section>
 
-      <section className="section" aria-labelledby="privacy-title">
+      <section className="section" aria-labelledby="private-title">
         <div className="container">
-          <div className="prose">
-            <p className="eyebrow">Privacy</p>
-            <h2 id="privacy-title">Built for two people, by default.</h2>
-            <p>
-              DayByUs holds the kind of material people don&rsquo;t post anywhere else. That shapes
-              how it is designed: a private space between two people, with no public profiles, no
-              social graph and no feed for anyone else to scroll.
-            </p>
-            <p>
-              We will publish a full privacy policy for DayByUs, describing exactly what the app
-              stores and how, before it is released. Until then we&rsquo;d rather say less than
-              claim something we haven&rsquo;t finished building.
-            </p>
-            <p>
-              Privacy or data questions in the meantime go to{" "}
-              <EmailLink address={emails.privacy} />.
+          <div className={styles.closing}>
+            <h2 id="private-title">Just for the two of you.</h2>
+            <p className={styles.closingBody}>
+              No followers. No public profile. No audience.
             </p>
           </div>
         </div>
@@ -143,11 +101,10 @@ export default function DayByUsPage() {
           <div className={styles.statusPanel}>
             <p className="eyebrow">Status</p>
             <h2 id="status-title">{statusLabels[product.status]}</h2>
+
             {product.stores.length > 0 ? (
               <>
-                <p className={styles.statusBody}>
-                  DayByUs is available to download now.
-                </p>
+                <p className={styles.statusBody}>DayByUs is available to download now.</p>
                 <div className={styles.storeRow}>
                   {product.stores.map((store) => (
                     <a
@@ -165,8 +122,7 @@ export default function DayByUsPage() {
               <>
                 <p className={styles.statusBody}>
                   DayByUs is still being built. It isn&rsquo;t on the App Store or Google Play
-                  yet, and this page will say so the day that changes &mdash; no waitlist theatre
-                  in the meantime.
+                  yet, and this page will say so the day that changes.
                 </p>
                 <Link className="button button--primary" href="/contact">
                   Ask us about DayByUs
@@ -177,6 +133,9 @@ export default function DayByUsPage() {
             <p className={styles.supportNote}>
               Questions about DayByUs, or help with the app once it&rsquo;s out:{" "}
               <EmailLink className={styles.supportAddress} address={emails.support} />
+              <br />
+              Privacy or data questions:{" "}
+              <EmailLink className={styles.supportAddress} address={emails.privacy} />
             </p>
           </div>
         </div>

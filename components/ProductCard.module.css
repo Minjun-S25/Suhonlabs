@@ -54,11 +54,6 @@
   max-width: 48ch;
 }
 
-.audience {
-  font-size: var(--step--1);
-  color: var(--ink-tertiary);
-}
-
 .actions {
   margin-top: 0.35rem;
 }

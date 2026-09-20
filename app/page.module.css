@@ -46,96 +46,30 @@
   margin-bottom: clamp(2rem, 5vw, 3.25rem);
 }
 
-.sectionHeadText {
+/* ------------------------------------------------------ About preview */
+
+.aboutPreview {
+  display: grid;
+  gap: clamp(1.25rem, 4vw, 3rem);
+}
+
+.aboutBody {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
-
-.sectionHeadRow {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-@media (min-width: 720px) {
-  .sectionHeadRow {
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 2rem;
-  }
-}
-
-/* ------------------------------------------------------------ Approach */
-
-.approach {
-  display: grid;
-  gap: clamp(2rem, 5vw, 4rem);
-}
-
-.approachList {
-  list-style: none;
-  display: grid;
-  gap: 0;
-  counter-reset: step;
-}
-
-.approachItem {
-  display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr);
-  gap: 1rem;
-  padding-block: 1.35rem;
-  border-top: 1px solid var(--line);
-}
-
-.approachItem:last-child {
-  border-bottom: 1px solid var(--line);
-}
-
-.approachStep {
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
-  color: var(--ink-tertiary);
-  padding-top: 0.3em;
-}
-
-.approachName {
-  font-family: var(--font-display);
-  font-size: var(--step-1);
-  margin-bottom: 0.3rem;
-}
-
-.approachBody {
+  gap: 1.1rem;
+  max-width: 52ch;
   color: var(--ink-secondary);
-  font-size: var(--step--1);
-  line-height: 1.65;
-  max-width: 56ch;
+  font-size: var(--step-1);
+  line-height: 1.55;
+}
+
+.aboutAction {
+  margin-top: 0.5rem;
 }
 
 @media (min-width: 900px) {
-  .approach {
+  .aboutPreview {
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
     align-items: start;
   }
-}
-
-/* ---------------------------------------------------------- Closing CTA */
-
-.closing {
-  background: var(--paper-sunken);
-  border-top: 1px solid var(--line);
-}
-
-.closingInner {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  align-items: flex-start;
-  padding-block: clamp(3.5rem, 8vw, 6rem);
-}
-
-.closingTitle {
-  max-width: 18ch;
 }

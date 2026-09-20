@@ -37,12 +37,11 @@ export function ProductCard({ product, index = 0 }: Props) {
 
         <p className={styles.tagline}>{product.tagline}</p>
         <p className={styles.summary}>{product.summary}</p>
-        <p className={styles.audience}>For {product.audience.toLowerCase()}</p>
 
         {product.hasPage ? (
           <p className={styles.actions}>
             <Link className="arrow-link" href={`/products/${product.slug}`}>
-              <span>Learn about {product.name}</span>
+              <span>View {product.name}</span>
               <span aria-hidden="true">→</span>
             </Link>
           </p>
